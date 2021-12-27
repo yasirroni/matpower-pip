@@ -1,12 +1,16 @@
 # matpower-pip
 
-Make MATPOWER installable from `pypi`. This package maintain MATPOWER version with custom pypi suffix such as `a`, `b`, `dev`, `post` , etc.
+Make MATPOWER installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package` and maintain MATPOWER version with custom pypi suffix such as `a`, `b`, `dev`, `post` , etc. You can than use `oct2py` or `mypower` to run MATPOWER using octave client.
 
 ## Installation
 
 ```plaintext
 pip install matpower
 ```
+
+## Usage
+
+Use `oct2py` or `mypower` on `matpower`.
 
 ## Build for developer
 
