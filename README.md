@@ -24,7 +24,7 @@ copy NUL matpower\__init__.py
 
 Note: Sometimes it is not working from inside `vscode`. Try use it on `cmd`
 
-### Python
+#### Python
 
 ```plaintext
 py matpower_dowloader.py
@@ -49,6 +49,10 @@ twine upload dist/*
 ## TODO
 
 1. Add dynamic "__version__"
+
+2. Make importable using `oct2py`
+
+3. Update `mypower` to make `matpower-pip` as default `matpower` path.
 
 ## Authors
 
