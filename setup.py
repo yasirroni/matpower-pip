@@ -3,7 +3,7 @@ import re
 import setuptools
 
 current_path = os.path.abspath(os.path.dirname(__file__))
-version_line = open(os.path.join(current_path, 'matpower/CHANGES.md'), "rt").read()
+version_line = open(os.path.join(current_path, 'matpowerpip/matpower/CHANGES.md'), "rt").read()
 m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
 
 suffix = "a0"
@@ -18,14 +18,14 @@ def package_files(directory_list):
     return paths
 
 extra_files = package_files([
-    'matpower/data',
-    'matpower/docker',
-    'matpower/docs',
-    'matpower/lib',
-    'matpower/mips',
-    'matpower/most',
-    'matpower/mp-opt-model',
-    'matpower/mptest'
+    'matpowerpip/matpower/data',
+    'matpowerpip/matpower/docker',
+    'matpowerpip/matpower/docs',
+    'matpowerpip/matpower/lib',
+    'matpowerpip/matpower/mips',
+    'matpowerpip/matpower/most',
+    'matpowerpip/matpower/mp-opt-model',
+    'matpowerpip/matpower/mptest'
     ])
 
 with open("README.md", "r") as f:
@@ -40,10 +40,10 @@ setuptools.setup(
     long_description = long_description,
     url = "https://gitlab.com/yasirroni/matpower-pip",
     long_description_content_type = "text/markdown",
-    packages = setuptools.find_packages(),
+    packages = "matpowerpip/matpower",
     package_data = {
         '': extra_files,
-        'matpower':[
+        'matpowerpip/matpower':[
             'AUTHORS',
             'CHANGES.md',
             'CITATION',

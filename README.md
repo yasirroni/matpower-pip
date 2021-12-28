@@ -10,7 +10,21 @@ pip install matpower
 
 ## Usage
 
-Use `oct2py` or `mypower` on `matpower`.
+`matpower.matpower` can be used as `Oct2Py()` class with MATPOWER path added.
+
+```python
+from matpower import matpower
+
+mpc = matpower.eval('case9', verbose=False)
+
+mpc = matpower.runpf(mpc)
+```
+
+```python
+from matpower import matpower
+
+matpower.runpf() 
+```
 
 ## Build for developer
 
@@ -23,15 +37,17 @@ curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpowe
 tar -xf matpower.zip
 del matpower.zip
 ren matpower-7.1 matpower
-copy NUL matpower\__init__.py
+copy matpowerpip\__init__.py matpowerpip\matpower\__init__.py
 ```
 
 Note: Sometimes it is not working from inside `vscode`. Try use it on `cmd`
 
 #### Python
 
-```plaintext
-py matpower_dowloader.py
+```python
+import matpowerpip
+
+matpowerpip.downloader.download()
 ```
 
 ### deployment to pypi
