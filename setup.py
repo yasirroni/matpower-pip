@@ -61,5 +61,5 @@ setuptools.setup(
         "octave": [
             "oct2py>=5.2.0",
         ],
-
+    }
 )
