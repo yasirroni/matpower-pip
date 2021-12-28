@@ -49,16 +49,17 @@ def download(matpower_version='7.1', destination=None, force=False, rename=True)
         print(f"matpower saved on {default_matpower_dir}")
         return default_matpower_dir
 
-def create_init(dir_path=None, matpower_version='7.1'):
-    if dir_path is None:
-        matpower_dir = os.path.dirname(os.path.abspath(inspect.getfile(download)))
-        dir_path = os.path.join(matpower_dir,'matpower-' + matpower_version)
+def copy_init(destionation=None, matpower_version='7.1'):
+    matpower_dir = os.path.dirname(os.path.abspath(inspect.getfile(download)))
+    source = os.path.join(matpower_dir, "__init__.py")
+
+    if destionation is None:
+        destionation = os.path.join(matpower_dir,'matpower-' + matpower_version)
     
-    init_path = os.path.join(dir_path, '__init__.py')
-    if not os.path.exists(init_path):
-        with open(init_path, 'w') as fp:
-            pass
+    destionation_ = os.path.join(destionation, '__init__.py')
+    if not os.path.exists(destionation_):
+        shutil.copy2(source, destionation_)
 
 if __name__ == "__main__":
     matpower_dir = download()
-    create_init(dir_path=matpower_dir)
+    copy_init(destionation=matpower_dir)

@@ -6,7 +6,7 @@ current_path = os.path.abspath(os.path.dirname(__file__))
 version_line = open(os.path.join(current_path, 'matpowerpip/matpower/CHANGES.md'), "rt").read()
 m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
 
-suffix = "a0"
+suffix = "a1"
 __version__ = m.group(0).split(" ")[1] + suffix
 
 def package_files(directory_list):
@@ -57,4 +57,9 @@ setuptools.setup(
         "Programming Language :: Python",
         "Topic :: Scientific/Engineering"
     ],
+    extras_require={
+        "octave": [
+            "oct2py>=5.2.0",
+        ],
+
 )

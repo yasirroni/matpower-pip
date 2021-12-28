@@ -1,16 +1,24 @@
 # matpower-pip
 
-Make MATPOWER installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package` and maintain MATPOWER version with custom pypi suffix such as `a`, `b`, `dev`, `post` , etc. You can than use `oct2py` or `mypower` to run MATPOWER using octave client.
+Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package` and maintain MATPOWER version with custom pypi suffix such as `a`, `b`, `dev`, `post` , etc. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or `mypower` to run MATPOWER using octave client.
 
 ## Installation
+
+For callable `matpower` via `oct2py` (require octave on environment system `PATH`):
+
+```plaintext
+pip install matpower[octave]
+```
+
+For downloading MATPOWER only:
 
 ```plaintext
 pip install matpower
 ```
 
-## Usage
+## Extra (require `oct2py`)
 
-`matpower.matpower` can be used as `Oct2Py()` class with MATPOWER path added.
+If `oct2py` also installed, `matpower.matpower` can be used as `Oct2Py()` class with MATPOWER path added.
 
 ```python
 from matpower import matpower
@@ -70,9 +78,7 @@ twine upload dist/*
 
 1. Add dynamic "__version__"
 
-2. Make importable using `oct2py`
-
-3. Update `mypower` to make `matpower-pip` as default `matpower` path.
+2. Update `mypower` to make `matpower-pip` as default `matpower` path.
 
 ## Authors
 
