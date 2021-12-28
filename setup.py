@@ -28,8 +28,7 @@ extra_files = package_files([
     'matpower/mptest'
     ])
 
-parent_path = os.path.dirname(current_path)
-with open(os.path.join(parent_path,"README.md"), "r") as f:
+with open("README.md", "r") as f:
     long_description = f.read()
 
 setuptools.setup(
@@ -41,7 +40,7 @@ setuptools.setup(
     long_description = long_description,
     url = "https://gitlab.com/yasirroni/matpower-pip",
     long_description_content_type = "text/markdown",
-    packages = "matpower",
+    packages = ["matpower"],
     package_data = {
         '': extra_files,
         'matpower':[

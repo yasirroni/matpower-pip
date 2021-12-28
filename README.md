@@ -45,7 +45,7 @@ curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpowe
 tar -xf matpower.zip
 del matpower.zip
 ren matpower-7.1 matpower
-copy matpowerpip\__init__.py matpowerpip\matpower\__init__.py
+copy matpowerpip\__init__.py matpower\__init__.py
 ```
 
 Note: Sometimes it is not working from inside `vscode`. Try use it on `cmd`
