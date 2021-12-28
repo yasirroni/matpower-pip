@@ -52,6 +52,15 @@ Note: Sometimes it is not working from inside `vscode`. Try use it on `cmd`
 
 #### Python
 
+Directly use `downloader.py`:
+
+```plaintext
+cd matpowerpip
+py downloader.py
+```
+
+With `matpowerpip` (require `oct2py`):
+
 ```python
 import matpowerpip
 
