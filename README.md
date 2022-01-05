@@ -18,20 +18,27 @@ pip install matpower
 
 ## Extra (require `oct2py`)
 
-If `oct2py` also installed, `matpower.matpower` can be used as `Oct2Py()` class with MATPOWER path added.
+If `oct2py` also installed, `matpower.start_instance` can be used as `Oct2Py()` class with MATPOWER path added.
 
 ```python
-from matpower import matpower
+from matpower import start_instance
 
-mpc = matpower.eval('case9', verbose=False)
-
-mpc = matpower.runpf(mpc)
+m = start_instance()
+mpc = m.eval('case9', verbose=False)
+mpc = m.runpf(mpc)
 ```
 
 ```python
-from matpower import matpower
+from matpower import start_instance
 
-matpower.runpf() 
+m = start_instance()
+m.runpf() 
+```
+
+```python
+from matpower import path_matpower
+
+print(path_matpower) # matpower installation location
 ```
 
 ## Build for developer
@@ -85,9 +92,7 @@ twine upload dist/*
 
 ## TODO
 
-1. Add dynamic "__version__"
-
-2. Update `mypower` to make `matpower-pip` as default `matpower` path.
+1. Update `mypower` to make `matpower-pip` as default `matpower` path.
 
 ## Authors
 

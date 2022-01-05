@@ -8,6 +8,9 @@ matpower.zip
 # Token
 .pypirc
 
+# Playground
+playground.ipynb
+
 # Editor
 .vscode/
 
