@@ -41,6 +41,68 @@ from matpower import path_matpower
 print(path_matpower) # matpower installation location
 ```
 
+Since `[result] = runopf()` will make `result` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'`.
+
+```python
+from matpower import start_instance
+
+m = start_instance()
+
+mpc = m.loadcase('case9');
+mpopt = m.mpoption('verbose', 2);
+[baseMVA, bus, gen, gencost, branch, f, success, et] m.runopf(mpc, mpopt, nout='max_nout')
+```
+
+Alternatively, it would be better to not parse back value that will not be use on python using `.eval` method. Use `;` to avoid octave print output on running the command.
+
+```python
+# import start_instance to start matpower instance
+from matpower import start_instance
+
+# start instance
+m = start_instance()
+
+# use octave native to run some commands
+m.eval("mpopt = mpoption('verbose', 2);")
+m.eval("mpc = loadcase('case9');")
+m.eval("r1 = runopf(mpc, mpopt);") # we avoid parse `r1` that containts unsupported `<object opf_model>`
+
+# fech data to python (.eval is used because .pull is not working in acessing field)
+r1_mpc = {}
+r1_mpc['baseMVA'] = m.eval('r1.baseMVA;')
+r1_mpc['version'] = m.eval('r1.version;')
+r1_mpc['bus'] = m.eval('r1.bus;')
+r1_mpc['gen'] = m.eval('r1.gen;')
+r1_mpc['branch'] = m.eval('r1.branch;')
+r1_mpc['gencost'] = m.eval('r1.gencost;')
+
+# modify variable if necessary
+[GEN_BUS, PG, QG, QMAX, QMIN, VG, MBASE, GEN_STATUS, PMAX, PMIN, MU_PMAX, 
+ MU_PMIN, MU_QMAX, MU_QMIN, PC1, PC2, QC1MIN, QC1MAX, QC2MIN, QC2MAX, 
+ RAMP_AGC, RAMP_10, RAMP_30, RAMP_Q, APF] = m.idx_gen(nout='max_nout')
+gen_index = 2 # index of generator to be changed
+gen_index_ = int(gen_index - 1) # -1 due to python indexing start from 0
+PMAX_ = int(PMAX -1) # -1 due to python indexing start from 0
+r1_mpc['gen'][gen_index_,PMAX_] = 110 # in this example, we modify PMAX to be 110
+
+[PQ, PV, REF, NONE, BUS_I, BUS_TYPE, PD, QD, GS, BS, 
+ BUS_AREA, VM, VA, BASE_KV, ZONE, VMAX, VMIN, LAM_P, 
+ LAM_Q, MU_VMAX, MU_VMIN] = m.idx_bus(nout='max_nout')
+bus_index = 7 # index of bus to be changed
+bus_index_ = int(bus_index - 1) # -1 due to python indexing start from 0
+PD_ = int(PD-1) # -1 due to python indexing start from 0
+r1_mpc['bus'][bus_index_,int(PD-1)] = 80 # in this example, we modify PD to be 150
+
+# push back value to octave client
+m.push('mpc', r1_mpc) # push r1_mpc in python to mpc in octave
+
+# test if our pushed variable can be used
+m.eval("r1 = runopf(mpc, mpopt);")
+
+# test if we can retrive pushed value
+mpc = m.pull('mpc')
+```
+
 ## Build for developer
 
 ### Download matpower
