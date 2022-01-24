@@ -16,9 +16,16 @@ For downloading MATPOWER only:
 pip install matpower
 ```
 
-## Extra (require `oct2py`)
+## Extra (require `oct2py` or `matlab.engine`)
 
-If `oct2py` also installed, `matpower.start_instance` can be used as `Oct2Py()` class with MATPOWER path added.
+If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used as `Oct2Py()` or `matlab.engine.start_matlab()` class with MATPOWER path added. Default engine is `octave`.
+
+```python
+from matpower import start_instance
+
+m = start_instance()
+m.runpf() 
+```
 
 ```python
 from matpower import start_instance
@@ -29,19 +36,12 @@ mpc = m.runpf(mpc)
 ```
 
 ```python
-from matpower import start_instance
-
-m = start_instance()
-m.runpf() 
-```
-
-```python
 from matpower import path_matpower
 
 print(path_matpower) # matpower installation location
 ```
 
-Since `[result] = runopf()` will make `result` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'`.
+Since `[result] = runopf()` will make `result` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'` in `octave`.
 
 ```python
 from matpower import start_instance
@@ -53,7 +53,7 @@ mpopt = m.mpoption('verbose', 2);
 [baseMVA, bus, gen, gencost, branch, f, success, et] m.runopf(mpc, mpopt, nout='max_nout')
 ```
 
-Alternatively, it would be better to not parse back value that will not be use on python using `.eval` method. Use `;` to avoid octave print output on running the command.
+Alternatively, it would be better to not parse back value that will not be use on python using `oct2py` `.eval` method. Use `;` to avoid octave print output on running the command.
 
 ```python
 # import start_instance to start matpower instance
@@ -101,6 +101,13 @@ m.eval("r1 = runopf(mpc, mpopt);")
 
 # test if we can retrive pushed value
 mpc = m.pull('mpc')
+```
+
+```python
+from matpower import start_instance
+
+m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `oct2py`
+m.runpf() 
 ```
 
 ## Build for developer
