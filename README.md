@@ -1,6 +1,6 @@
 # matpower-pip
 
-Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package` and maintain MATPOWER version with custom pypi suffix such as `a`, `b`, `dev`, `post` , etc. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or `mypower` to run MATPOWER using octave client. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package`. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or `mypower` to run MATPOWER using octave client. `matlab.engine` also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
 
 ## Installation
 
@@ -160,6 +160,13 @@ matpowerpip.downloader.download()
 
 ### deployment to pypi
 
+Delete old dist if exist to avoid the unexpected.
+
+```powershell
+del dist -Recurse -Force
+del matpower.egg-info -Recurse -Force
+```
+
 For testing, use `testpypi`:
 
 ```plaintext
@@ -173,6 +180,10 @@ For actual push to `pypi`:
 py setup.py sdist
 twine upload dist/*
 ```
+
+## Versioning
+
+This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
 
 ## TODO
 
