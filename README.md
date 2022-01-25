@@ -103,11 +103,13 @@ m.eval("r1 = runopf(mpc, mpopt);")
 mpc = m.pull('mpc')
 ```
 
+Also support using `matlab.engine`.
+
 ```python
 from matpower import start_instance
 
 m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `oct2py`
-m.runpf() 
+r = m.runpf('case5', nargout=0)
 ```
 
 ## Build for developer
