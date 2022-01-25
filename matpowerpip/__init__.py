@@ -15,6 +15,8 @@ def start_instance(path_matpower=None, engine='octave'):
         path_matpower = os.path.dirname(os.path.abspath(__file__))
     
     if engine == 'octave':
+        # TODO:
+        # Tell user to use `pip install matpower[octave]` or `pip install oct2py`
         from oct2py import Oct2Py
         m = Oct2Py()
     elif engine == 'matlab':
