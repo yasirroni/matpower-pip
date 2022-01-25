@@ -41,3 +41,7 @@ except: # TODO: proper except: can't find 'CHANGES.md'
     __version__ = "0.0.2" + _suffix
 
 path_matpower = os.path.dirname(os.path.abspath(__file__))
+
+# TODO:
+# 1. Delete MATPOWER
+# 2. Download and unzip MATPOWER
