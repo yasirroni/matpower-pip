@@ -15,6 +15,11 @@ copy matpowerpip\__init__.py matpower\__init__.py
 
 ## Delete dist
 
+```powershell
+del dist -Recurse -Force
+del matpower.egg-info -Recurse -Force
+```
+
 ```plaintext
 del dist
 del matpower.egg-info
