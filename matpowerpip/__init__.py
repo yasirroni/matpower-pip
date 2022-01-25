@@ -36,7 +36,7 @@ try:
     m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
 
     __version__ = m.group(0).split(" ")[1] + _suffix
-except:
+except: # TODO: proper except: can't find 'CHANGES.md'
     # matpowerpip.__version__
     __version__ = "0.0.2" + _suffix
 
