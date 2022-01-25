@@ -21,8 +21,8 @@ def start_instance(path_matpower=None, engine='octave'):
         import matlab.engine
         m = matlab.engine.start_matlab()
     else:
-        # TODO: Add message
-        return None
+        msg = f"Unknown engine with name {engine}. Please choose between 'octave' or 'matlab'."
+        raise ValueError(msg)
 
     m.addpath(m.genpath(path_matpower))
 
