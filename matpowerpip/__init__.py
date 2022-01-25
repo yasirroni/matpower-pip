@@ -30,7 +30,7 @@ def start_instance(path_matpower=None, engine='octave'):
 
     return m
 
-_suffix = "a3"
+_suffix = "1"
 try:
     # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
@@ -40,7 +40,7 @@ try:
     __version__ = m.group(0).split(" ")[1] + _suffix
 except: # TODO: proper except: can't find 'CHANGES.md'
     # matpowerpip.__version__
-    __version__ = "0.0.2" + _suffix
+    __version__ = "0.0.2." + _suffix
 
 path_matpower = os.path.dirname(os.path.abspath(__file__))
 
