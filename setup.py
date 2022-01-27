@@ -49,7 +49,7 @@ setuptools.setup(
     author_email = "muhammadyasirroni@gmail.com",
     description = "Make MATPOWER installable from `pypi`.",
     long_description = long_description,
-    url = "https://gitlab.com/yasirroni/matpower-pip",
+    url = "https://github.com/yasirroni/matpower-pip",
     long_description_content_type = "text/markdown",
     packages = ["matpower"],
     package_data = {
