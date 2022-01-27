@@ -38,3 +38,13 @@ del matpower
 Xcopy /E /I backups\matpower-7.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 ```
+
+## Push update
+
+```plaintext
+copy matpowerpip\__init__.py matpower\__init__.py
+del dist -Recurse -Force
+del matpower.egg-info -Recurse -Force
+py setup.py sdist
+twine upload dist/*
+```
