@@ -26,11 +26,11 @@ def start_instance(path_matpower=None, engine='octave'):
         msg = f"Unknown engine with name {engine}. Please choose between 'octave' or 'matlab'."
         raise ValueError(msg)
 
-    m.addpath(m.genpath(path_matpower))
+    m.eval(f"addpath(genpath('{path_matpower}'))")
 
     return m
 
-_suffix = "1"
+_suffix = "2"
 try:
     # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
