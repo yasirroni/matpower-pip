@@ -30,7 +30,7 @@ def start_instance(path_matpower=None, engine='octave'):
 
     return m
 
-_suffix = "2"
+_suffix = "2.post1"
 try:
     # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
