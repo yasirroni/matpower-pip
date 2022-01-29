@@ -16,6 +16,8 @@ For downloading MATPOWER only:
 pip install matpower
 ```
 
+If you want `conda`, please see [this stack overflow question](https://stackoverflow.com/questions/29286624/how-to-install-pypi-packages-using-anaconda-conda-command) and [the conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment) on installing pypi package using conda, since I'm currently not using conda and unfamiliar with it.
+
 ## Extra (require `oct2py` or `matlab.engine`)
 
 If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used as `Oct2Py()` or `matlab.engine.start_matlab()` class with MATPOWER path added. Default engine is `octave`.
