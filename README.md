@@ -10,13 +10,19 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
 pip install matpower[octave]
 ```
 
-For downloading MATPOWER only:
+For downloading MATPOWER only (maybe you will run it using `matlab.eigine` or any other method):
 
 ```plaintext
 pip install matpower
 ```
 
-If you want `conda`, please see [this stack overflow question](https://stackoverflow.com/questions/29286624/how-to-install-pypi-packages-using-anaconda-conda-command) and [the conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment) on installing pypi package using conda, since I'm currently not using conda and unfamiliar with it.
+If you want `conda`, please see [this stack overflow question](https://stackoverflow.com/questions/29286624/how-to-install-pypi-packages-using-anaconda-conda-command) and [the conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment) on installing pypi package using conda, since I'm currently not using conda and unfamiliar with it. It should be something like this:
+
+```plaintext
+conda install -n myenv pip
+conda activate myenv
+pip install matpower[octave]
+```
 
 ## Extra (require `oct2py` or `matlab.engine`)
 
