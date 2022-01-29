@@ -124,7 +124,7 @@ r = m.runpf('case5', nargout=0)
 
 ### Download matpower
 
-#### Windows
+#### Windows (`cmd`)
 
 MATPOWER 7.1
 
@@ -147,7 +147,12 @@ ren matpower7.0 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 ```
 
-Note: Sometimes it is not working from inside `vscode`. Try use it on `cmd`
+Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
+
+<!-- 
+TODO: 
+    1. Powershell command
+ -->
 
 #### Python
 
@@ -196,6 +201,8 @@ This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7
 ## TODO
 
 1. Update `mypower` to make `matpower-pip` as default `matpower` path.
+
+2. `conda` and `docker` installation that include octave-cli installation.
 
 ## Authors
 
