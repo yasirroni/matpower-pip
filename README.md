@@ -1,6 +1,6 @@
 # matpower-pip
 
-Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from `pypi`. This package make MATPOWER copy (currently Version `7.1`) as `python package`. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or `mypower` to run MATPOWER using octave client. `matlab.engine` also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](https://pypi.org/project/matpower/). This package make MATPOWER copy (currently Version `7.1`) as `python package`. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or [`mypower`](https://github.com/yasirroni/mypower) to run MATPOWER using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
 
 ## Installation
 
@@ -195,4 +195,4 @@ This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7
 
 ## Acknowledgement
 
-This repository was supported by [Faculty of Engineering, Universitas Gadjah Mada](https://ft.ugm.ac.id/en/) under the supervision of [Mr. Sarjiya](https://www.researchgate.net/profile/Sarjiya_Sarjiya)
+This repository was supported by [Faculty of Engineering, Universitas Gadjah Mada](https://ft.ugm.ac.id/en/) under the supervision of [Mr. Sarjiya](https://www.researchgate.net/profile/Sarjiya_Sarjiya). If you use this package, we are very glad if you cite any relevant publication under Mr. Sarjiya name that can be found on [semanticscholar](https://www.semanticscholar.org/author/Sarjiya/2267414) or [ieee](https://ieeexplore.ieee.org/author/37548066400) for the meantime, since publication related to this repository is on going. This work is also partly motivated after I found out that [oct2py](https://github.com/blink1073/oct2py) support running `octave` client from python, but the only implemention for running [MATPOWER](https://github.com/MATPOWER/matpower) that I know, called [oct2pypower](https://github.com/rwl/oct2pypower), require `docker` and not newbie-friendly. Nevertheless, I would like to say thank you to all people contributed on [oct2py](https://github.com/blink1073/oct2py), [oct2pypower](https://github.com/rwl/oct2pypower), and more importantly [MATPOWER](https://github.com/MATPOWER/matpower).
