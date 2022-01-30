@@ -208,6 +208,14 @@ This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7
 
 * **Muhammad Yasirroni** - [yasirroni](https://github.com/yasirroni)
 
+## Cite
+
+We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publication](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
+
+> M. Yasirroni, Sarjiya, "matpower-pip: Make MATPOWER installable from pypi", GitHub, 2021. [Online]. Available: https://github.com/yasirroni/matpower-pip.
+
+If a journal publication from the author to appear soon should be cited instead.
+
 ## Acknowledgement
 
 This repository was supported by the [Faculty of Engineering, Universitas Gadjah Mada](https://ft.ugm.ac.id/en/) under the supervision of [Mr. Sarjiya](https://www.researchgate.net/profile/Sarjiya_Sarjiya). If you use this package, we are very glad if you cite any relevant publication under Mr. Sarjiya's name that can be found on the [semantic scholar](https://www.semanticscholar.org/author/Sarjiya/2267414) or [IEEE](https://ieeexplore.ieee.org/author/37548066400) for the meantime, since publication related to this repository is ongoing. This work is also partly motivated after I found out that `oct2py` supports running `octave` client from `python`, but the only implementation for running `MATPOWER` that I know, that is [oct2pypower](https://github.com/rwl/oct2pypower), requires `docker` and is not newbie-friendly. Nevertheless, I would like to say thank you to all people who contributed to `oct2py`, `oct2pypower`, and more importantly `MATPOWER`.
