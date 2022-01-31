@@ -49,7 +49,7 @@ from matpower import path_matpower
 print(path_matpower) # matpower installation location
 ```
 
-Since `[result] = runopf()` will make `result` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'` in `octave`.
+Since `mpc = m.runopf()` will make `mpc` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'` in `octave`.
 
 ```python
 from matpower import start_instance
@@ -58,7 +58,7 @@ m = start_instance()
 
 mpc = m.loadcase('case9');
 mpopt = m.mpoption('verbose', 2);
-[baseMVA, bus, gen, gencost, branch, f, success, et] m.runopf(mpc, mpopt, nout='max_nout')
+[baseMVA, bus, gen, gencost, branch, f, success, et] = m.runopf(mpc, mpopt, nout='max_nout')
 ```
 
 Alternatively, it would be better to not parse back value that will not be use on python using `oct2py` `.eval` method. Use `;` to avoid octave print output on running the command.
@@ -104,11 +104,11 @@ r1_mpc['bus'][bus_index_,int(PD-1)] = 80 # in this example, we modify PD to be 1
 # push back value to octave client
 m.push('mpc', r1_mpc) # push r1_mpc in python to mpc in octave
 
-# test if our pushed variable can be used
-m.eval("r1 = runopf(mpc, mpopt);")
-
 # test if we can retrive pushed value
 mpc = m.pull('mpc')
+
+# test if our pushed variable can be used
+m.eval("r1 = runopf(mpc, mpopt);")
 ```
 
 Also support using `matlab.engine`.
@@ -117,7 +117,7 @@ Also support using `matlab.engine`.
 from matpower import start_instance
 
 m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `oct2py`
-r = m.runpf('case5', nargout=0)
+mpc = m.runpf('case5', nargout=0)
 ```
 
 ## Build for developer
