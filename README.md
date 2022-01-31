@@ -6,27 +6,15 @@ Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](
 
 ### `matpower`
 
-For callable `matpower` via `oct2py` (require octave on environment system `PATH`, see next section for help):
-
-```plaintext
-pip install matpower[octave]
-```
-
-For downloading MATPOWER only (maybe you will run it using `matlab.eigine` or any other method):
+For downloading MATPOWER only (maybe you will run it using `matlab.engine` or any other method):
 
 ```plaintext
 pip install matpower
 ```
 
-If you want `conda`, please see [this stack overflow question](https://stackoverflow.com/questions/29286624/how-to-install-pypi-packages-using-anaconda-conda-command) and [the conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment) on installing pypi package using conda, since I'm currently not using conda and unfamiliar with it. It should be something like this:
-
-```plaintext
-conda install -n myenv pip
-conda activate myenv
-pip install matpower[octave]
-```
-
 ### `oct2py` (Windows)
+
+For callable `matpower` via `oct2py` (require octave on environment system `PATH`):
 
 1. Download [octave](https://www.gnu.org/software/octave/download.html).
 
@@ -44,14 +32,8 @@ pip install matpower[octave]
 
 6. Install `matpower` that include `oct2py`.
 
-    ```python
+    ```plaintext
     pip install matpower[octave]
-    ```
-
-7. To test, open Command Prompt, run python, import `oct2py`.
-
-    ```python
-    import oct2py
     ```
 
 ## Extra (require `oct2py` or `matlab.engine`)
@@ -149,81 +131,6 @@ from matpower import start_instance
 m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `oct2py`
 mpc = m.runpf('case5', nargout=0)
 ```
-
-## Build for developer
-
-### Download matpower
-
-#### Windows (`cmd`)
-
-MATPOWER 7.1
-
-```plaintext
-https://github.com/MATPOWER/matpower/releases/download/7.1/matpower7.1.zip
-curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpower.zip
-tar -xf matpower.zip
-del matpower.zip
-ren matpower-7.1 matpower
-copy matpowerpip\__init__.py matpower\__init__.py
-```
-
-MATPOWER 7.0
-
-```plaintext
-curl -L https://github.com/MATPOWER/matpower/releases/download/7.0/matpower7.0.zip > matpower.zip
-tar -xf matpower.zip
-del matpower.zip
-ren matpower7.0 matpower
-copy matpowerpip\__init__.py matpower\__init__.py
-```
-
-Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
-
-<!-- 
-TODO: 
-    1. Powershell command
- -->
-
-#### Python
-
-Directly use `downloader.py`:
-
-```plaintext
-cd matpowerpip
-py downloader.py
-```
-
-With `matpowerpip` (require `oct2py`):
-
-```python
-import matpowerpip
-
-matpowerpip.downloader.download()
-```
-
-### deployment to pypi
-
-Delete old dist if exist to avoid the unexpected.
-
-```powershell
-del dist -Recurse -Force
-del matpower.egg-info -Recurse -Force
-```
-
-For testing, use `testpypi`:
-
-```plaintext
-py setup.py sdist
-py -m twine upload --repository testpypi dist/* --verbose 
-```
-
-For actual push to `pypi`:
-
-```plaintext
-py setup.py sdist
-twine upload dist/*
-```
-
 ## Versioning
 
 This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
