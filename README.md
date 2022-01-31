@@ -4,7 +4,9 @@ Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](
 
 ## Installation
 
-For callable `matpower` via `oct2py` (require octave on environment system `PATH`):
+### `matpower`
+
+For callable `matpower` via `oct2py` (require octave on environment system `PATH`, see next section for help):
 
 ```plaintext
 pip install matpower[octave]
@@ -23,6 +25,34 @@ conda install -n myenv pip
 conda activate myenv
 pip install matpower[octave]
 ```
+
+### `oct2py` (Windows)
+
+1. Download [octave](https://www.gnu.org/software/octave/download.html).
+
+2. Install octave, write down the destination path.
+
+3. Open Environment Variable. You can access it by pressing <kbd>Windows-Key</kbd>, type `edit the system environment variables`, and press <kbd>&#9166;Enter</kbd> to search.
+
+4. Add new Environment Variable to execute `octave-cli`. The path is likely to be `C:\Program Files\octave-5.2.0-w64\mingw64\bin\octave-cli.exe`.
+
+    Variable name: `OCTAVE_EXECUTABLE`
+
+    Variable value: `location:\\of\\octave\\bin\\octave-cli.exe`
+
+5. Restart computer to make `os.environ` recognize the new path.
+
+6. Install `matpower` that include `oct2py`.
+
+    ```python
+    pip install matpower[octave]
+    ```
+
+7. To test, open Command Prompt, run python, import `oct2py`.
+
+    ```python
+    import oct2py
+    ```
 
 ## Extra (require `oct2py` or `matlab.engine`)
 
