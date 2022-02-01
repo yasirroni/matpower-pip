@@ -4,7 +4,7 @@ Place to save some commands related to matpower-pip development, deployment, and
 
 ## Download MATPOWER
 
-#### Windows (`cmd`)
+### Windows (`cmd`)
 
 MATPOWER 7.1
 
@@ -34,7 +34,7 @@ TODO:
     1. Powershell command
  -->
 
-#### Python
+### Python
 
 Directly use `downloader.py`:
 
