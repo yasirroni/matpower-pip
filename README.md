@@ -6,7 +6,7 @@ Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](
 
 ### `matpower`
 
-For downloading MATPOWER only (maybe you will run it using `matlab.engine` or any other method):
+For downloading MATPOWER only (maybe you will run it using `matlab.engine` or any other method, or simply want an easy MATPOWER downloader):
 
 ```plaintext
 pip install matpower
