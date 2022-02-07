@@ -1,12 +1,14 @@
 # matpower-pip
 
-Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](https://pypi.org/project/matpower/). This package make MATPOWER copy (currently Version `7.1`) as `python package`. You can than use [`oct2py`](https://github.com/blink1073/oct2py) or [`mypower`](https://github.com/yasirroni/mypower) to run MATPOWER using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme). This project also listed on [related links](https://matpower.org/related-links/) on matpower official website. Please visit that site to find other useful resources.
+Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](https://pypi.org/project/matpower/). This package make `MATPOWER` copy (currently Version `7.1`) as `python package`. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+
+This project also listed on [related links](https://matpower.org/related-links/) on matpower official website. Please visit that site to find other useful resources.
 
 ## Installation
 
 ### `matpower`
 
-For downloading MATPOWER only (maybe you will run it using `matlab.engine` or any other method, or simply want an easy MATPOWER downloader):
+For downloading `MATPOWER` only (maybe you will run it using `matlab.engine` or any other method, or simply want an easy `MATPOWER` downloader):
 
 ```plaintext
 pip install matpower
@@ -38,7 +40,7 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
 
 ## Extra (require `oct2py` or `matlab.engine`)
 
-If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used as `Oct2Py()` or `matlab.engine.start_matlab()` class with MATPOWER path added. Default engine is `octave`.
+If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used to run `octave` or `MATLAB` with `MATPOWER` path added. Default engine is `octave`. You also can use `mypower` for added functionality as shown in [`mypower tutorial`](https://github.com/yasirroni/mypower/blob/master/tutorial.py).
 
 ```python
 from matpower import start_instance
@@ -134,13 +136,11 @@ mpc = m.runpf('case5', nargout=0)
 
 ## Versioning
 
-This package maintain MATPOWER version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
+This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
 
 ## TODO
 
-1. Update `mypower` to make `matpower-pip` as default `matpower` path.
-
-2. `conda` and `docker` installation that include octave-cli installation.
+1. `conda` and `docker` installation that include octave-cli installation.
 
 ## Authors
 
