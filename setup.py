@@ -47,7 +47,7 @@ setuptools.setup(
     version = __version__, # versions '0.0.x' are unstable and subject to refactor
     author = "Muhammad Yasirroni",
     author_email = "muhammadyasirroni@gmail.com",
-    description = "Make MATPOWER installable from `pypi`.",
+    description = "Make MATPOWER installable from pypi.",
     long_description = long_description,
     url = "https://github.com/yasirroni/matpower-pip",
     long_description_content_type = "text/markdown",
