@@ -143,7 +143,7 @@ mpc = m.runpf('case5', nargout=0)
 Impacted case:
 
     ```python
-    mpc.bus_name.reshape(-1,1)
+    mpc.bus_name
     ```
 
 Solution:
