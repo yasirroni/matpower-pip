@@ -134,6 +134,47 @@ m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `
 mpc = m.runpf('case5', nargout=0)
 ```
 
+## Known engine issue
+
+### Octave
+
+1. Push 1D column vector of cell array will change the shape to row vector. See: https://github.com/blink1073/oct2py/issues/221
+
+Impacted case:
+
+    ```python
+    mpc.bus_name.reshape(-1,1)
+    ```
+
+Solution:
+
+    ```python
+    mpc.bus_name = mpc.bus_name.reshape(-1,1)
+    ```
+
+2. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733
+
+Impacted case:
+
+    ```python
+    r1 = m.runopf(mpc)
+    ```
+
+Solution:
+
+    ```python
+    m.push('mpc', mpc)
+    m.eval("r1 = runopf(mpc, mpopt);")
+
+    r1_mpc = {}
+    r1_mpc['baseMVA'] = m.eval('r1.baseMVA;')
+    r1_mpc['version'] = m.eval('r1.version;')
+    r1_mpc['bus'] = m.eval('r1.bus;')
+    r1_mpc['gen'] = m.eval('r1.gen;')
+    r1_mpc['branch'] = m.eval('r1.branch;')
+    r1_mpc['gencost'] = m.eval('r1.gencost;')
+    ```
+
 ## Versioning
 
 This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
