@@ -177,7 +177,7 @@ Solution:
 
 ## Versioning
 
-This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x` where `x` come from `matpower-pip`. Furthermore `matpower-pip` also has its own versioning, but is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
+This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x.x.x` where `.x.x.x` come from `matpower-pip` versioning. The `matpower-pip` versioning is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
 
 ## TODO
 

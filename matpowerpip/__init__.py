@@ -85,7 +85,7 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
     m.rmpath(path_matpower)
     m.savepath()
 
-_suffix = "2.post1"
+_suffix = "2.1.0"
 try:
     # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
@@ -95,7 +95,7 @@ try:
     __version__ = m.group(0).split(" ")[1] + _suffix
 except: # TODO: proper except: can't find 'CHANGES.md'
     # matpowerpip.__version__
-    __version__ = "0.0.2." + _suffix
+    __version__ = _suffix
 
 # TODO:
 # 1. Delete MATPOWER
