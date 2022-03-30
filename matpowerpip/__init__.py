@@ -17,6 +17,20 @@ def start_instance(path_matpower=None, engine='octave', add_path=True, save_path
         Oct2Py() or matlab.engine.start_matlab(): engine to run `.m` file
     """
 
+    m = start_session(engine=engine)
+
+    if add_path:
+        if path_matpower is None:
+            path_matpower = os.path.dirname(os.path.abspath(__file__))
+            
+        if save_path:
+            m.eval(f"addpath(genpath('{path_matpower}')); savepath;")
+        else:
+            m.eval(f"addpath(genpath('{path_matpower}'))")
+
+    return m
+
+def start_session(engine='octave'):
     if engine == 'octave':
         # TODO:
         # Tell user to use `pip install matpower[octave]` or `pip install oct2py`
@@ -33,14 +47,42 @@ def start_instance(path_matpower=None, engine='octave', add_path=True, save_path
         msg = f"Unknown engine with name {engine}. Please choose between 'octave' or 'matlab'."
         raise ValueError(msg)
 
-    if add_path:
-        if path_matpower is None:
-            path_matpower = os.path.dirname(os.path.abspath(__file__))
-            
-        if save_path:
-            m.eval(f"addpath(genpath('{path_matpower}')); savepath;")
-        else:
-            m.eval(f"addpath(genpath('{path_matpower}'))")
+    return m
+
+def install_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+    m = _meta_install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='install')
+    return m
+
+def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+    m = _meta_install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='uninstall')
+
+    # remove matpower-pip path
+    m.rmpath(path_matpower)
+    m.savepath()
+
+    return m
+
+def _meta_install_matpower(path_matpower=None, session=None, engine='octave', verbose=True, process='install'):
+    if session is None:
+        m = start_session(engine=engine)
+    else:
+        m = session
+    
+    if path_matpower is None:
+        path_matpower = os.path.dirname(os.path.abspath(__file__))
+
+    if verbose:
+        verbose = 1
+    else:
+        verbose = 0
+    
+    if process == 'install':
+        process = 1
+    else:
+        process = 0
+
+    m.addpath(path_matpower)
+    m.install_matpower(1, 1, verbose, process)
 
     return m
 
