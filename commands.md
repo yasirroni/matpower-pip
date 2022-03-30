@@ -74,7 +74,7 @@ Xcopy /E /I matpower backups\matpower-7.1
 ## Restore matpower from backup
 
 ```plaintext
-del matpower
+del matpower -Recurse -Force
 Xcopy /E /I backups\matpower-7.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 ```
