@@ -1,6 +1,11 @@
 import os
 import re
 
+PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
+
+# to support `from matpower import path_matpower`
+path_matpower = PATH_MATPOWER
+
 def start_instance(path_matpower=None, engine='octave', add_path=True, save_path=False):
     """Start octave or matlab instance
 
@@ -21,7 +26,7 @@ def start_instance(path_matpower=None, engine='octave', add_path=True, save_path
 
     if add_path:
         if path_matpower is None:
-            path_matpower = os.path.dirname(os.path.abspath(__file__))
+            path_matpower = PATH_MATPOWER
             
         if save_path:
             m.eval(f"addpath(genpath('{path_matpower}')); savepath;")
@@ -50,39 +55,44 @@ def start_session(engine='octave'):
     return m
 
 def install_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
-    m = _meta_install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='install')
-    return m
+    if path_matpower is None:
+        path_matpower = PATH_MATPOWER
 
-def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
-    m = _meta_install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='uninstall')
-
-    # remove matpower-pip path
-    m.rmpath(path_matpower)
-    m.savepath()
-
-    return m
-
-def _meta_install_matpower(path_matpower=None, session=None, engine='octave', verbose=True, process='install'):
     if session is None:
         m = start_session(engine=engine)
     else:
         m = session
-    
-    if path_matpower is None:
-        path_matpower = os.path.dirname(os.path.abspath(__file__))
 
     if verbose:
         verbose = 1
     else:
         verbose = 0
-    
-    if process == 'install':
-        process = 1
-    else:
-        process = 0
 
     m.addpath(path_matpower)
     m.install_matpower(1, 1, verbose, process)
+    m.rmpath(path_matpower)
+    m.savepath()
+
+    return m
+
+def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+    if path_matpower is None:
+        path_matpower = PATH_MATPOWER
+
+    if session is None:
+        m = start_session(engine=engine)
+    else:
+        m = session
+
+    if verbose:
+        verbose = 1
+    else:
+        verbose = 0
+
+    m.addpath(path_matpower)
+    m.install_matpower(0, 0, verbose, 1)
+    m.rmpath(path_matpower)
+    m.savepath()
 
     return m
 
@@ -97,8 +107,6 @@ try:
 except: # TODO: proper except: can't find 'CHANGES.md'
     # matpowerpip.__version__
     __version__ = "0.0.2." + _suffix
-
-path_matpower = os.path.dirname(os.path.abspath(__file__))
 
 # TODO:
 # 1. Delete MATPOWER
