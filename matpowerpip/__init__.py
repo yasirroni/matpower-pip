@@ -55,27 +55,14 @@ def start_session(engine='octave'):
     return m
 
 def install_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
-    if path_matpower is None:
-        path_matpower = PATH_MATPOWER
-
-    if session is None:
-        m = start_session(engine=engine)
-    else:
-        m = session
-
-    if verbose:
-        verbose = 1
-    else:
-        verbose = 0
-
-    m.addpath(path_matpower)
-    m.install_matpower(1, 1, verbose, process)
-    m.rmpath(path_matpower)
-    m.savepath()
-
+    m = _install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='install')
     return m
 
 def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+    m = _install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='uninstall')
+    return m
+
+def _install_matpower(path_matpower=None, session=None, engine='octave', verbose=True, process='install'):
     if path_matpower is None:
         path_matpower = PATH_MATPOWER
 
@@ -90,11 +77,13 @@ def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbos
         verbose = 0
 
     m.addpath(path_matpower)
-    m.install_matpower(0, 0, verbose, 1)
+    if process == 'install':
+        m.install_matpower(1, 1, verbose, 0)
+    else:
+        m.install_matpower(0, 0, verbose, 1)
+
     m.rmpath(path_matpower)
     m.savepath()
-
-    return m
 
 _suffix = "2.post1"
 try:
