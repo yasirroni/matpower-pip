@@ -85,7 +85,7 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
     m.rmpath(path_matpower)
     m.savepath()
 
-_suffix = "2.1.0"
+_suffix = "2.1.1"
 try:
     # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
