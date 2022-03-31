@@ -138,21 +138,7 @@ mpc = m.runpf('case5', nargout=0)
 
 ### Octave
 
-1. Push 1D column vector of cell array will change the shape to row vector. See: https://github.com/blink1073/oct2py/issues/221
-
-Impacted case:
-
-    ```python
-    mpc.bus_name
-    ```
-
-Solution:
-
-    ```python
-    mpc.bus_name = mpc.bus_name.reshape(-1,1)
-    ```
-
-2. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733
+1. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733
 
 Impacted case:
 
