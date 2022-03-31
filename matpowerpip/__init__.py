@@ -63,6 +63,18 @@ def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbos
     return m
 
 def _install_matpower(path_matpower=None, session=None, engine='octave', verbose=True, process='install'):
+    """Install MATPOWER using install_matpower.m
+    
+    The API of install_matpower.m might change.
+    This version is based on MATPOWER 7.1 install_matpower.m
+
+    Args:
+        path_matpower (str, optional): path to matpower. Defaults to None.
+        session (optional): Oct2Py or matlab.engine object. Defaults to None.
+        engine (str, optional): name of engine to run `.m` file, either 'octave' or 'matlab'. Defaults to 'octave'.
+        verbose (bool, optional): verbosity of install_matpower. Defaults to True.
+        process (str, optional): install or uninstall. Defaults to 'install'.
+    """
     if path_matpower is None:
         path_matpower = PATH_MATPOWER
 
