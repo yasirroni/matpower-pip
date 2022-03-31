@@ -31,14 +31,14 @@ Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` 
 
 <!-- 
 TODO: 
-    1. Powershell command
+    1. Powershell command for curl and tar
  -->
 
 ### Python
 
 Directly use `downloader.py`:
 
-```plaintext
+```powershell
 cd matpowerpip
 py downloader.py
 ```
@@ -60,20 +60,20 @@ del dist -Recurse -Force
 del matpower.egg-info -Recurse -Force
 ```
 
-```plaintext
-del dist
+```powershell
+del dist -Recurse -Force
 del matpower.egg-info
 ```
 
 ## Backups
 
-```plaintext
+```powershell
 Xcopy /E /I matpower backups\matpower-7.1
 ```
 
 ## Restore matpower from backup
 
-```plaintext
+```powershell
 del matpower -Recurse -Force
 Xcopy /E /I backups\matpower-7.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
@@ -83,21 +83,21 @@ copy matpowerpip\__init__.py matpower\__init__.py
 
 For testing, use `testpypi`:
 
-```plaintext
+```powershell
 py setup.py sdist
 py -m twine upload --repository testpypi dist/* --verbose 
 ```
 
 For actual push to `pypi`:
 
-```plaintext
+```powershell
 py setup.py sdist
 twine upload dist/*
 ```
 
 ## Push update
 
-```plaintext
+```powershell
 del matpower -Recurse -Force
 Xcopy /E /I backups\matpower-7.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
