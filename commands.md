@@ -98,9 +98,11 @@ twine upload dist/*
 ## Push update
 
 ```plaintext
+del matpower -Recurse -Force
+Xcopy /E /I backups\matpower-7.1 matpower
+copy matpowerpip\__init__.py matpower\__init__.py
 del dist -Recurse -Force
 del matpower.egg-info -Recurse -Force
-copy matpowerpip\__init__.py matpower\__init__.py
 py setup.py sdist
 twine upload dist/*
 ```
