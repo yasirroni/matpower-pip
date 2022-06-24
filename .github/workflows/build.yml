@@ -15,16 +15,16 @@ jobs:
       - name: Clone this repository
         uses: actions/checkout@v3
 
-      - name: Install Octave (Linux)
-        if: matrix.platform == 'octave'
-        uses: MATPOWER/action-install-octave-linux@v1
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: 'requirements-dev.txt'
+
+      - name: Install Octave (Linux)
+        if: matrix.platform == 'octave'
+        uses: MATPOWER/action-install-octave-linux@v1
 
       # TODO: Support matpower 7.0
       - name: Download matpower
