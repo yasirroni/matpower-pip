@@ -1,3 +1,4 @@
 numpy>=1.19.0
+oct2py>=5.5.1
 pytest
 pytest-cov
