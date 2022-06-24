@@ -68,7 +68,7 @@ setuptools.setup(
         "Programming Language :: Python",
         "Topic :: Scientific/Engineering"
     ],
-    python_requires = '>3.6',
+    python_requires = '>=3.6.*',
     extras_require={
         "octave": [
             "oct2py>=5.5.1",
