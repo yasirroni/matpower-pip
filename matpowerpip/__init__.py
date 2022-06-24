@@ -99,7 +99,7 @@ path_matpower = PATH_MATPOWER
 path_matpower_cases = os.path.join(path_matpower, 'data')
 cases = os.listdir(path_matpower_cases)
 
-__MATPOWERPIP_VERSION__ = "2.1.2"
+__MATPOWERPIP_VERSION__ = "2.1.3"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
