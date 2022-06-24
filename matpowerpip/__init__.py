@@ -97,7 +97,7 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
 PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
 path_matpower = PATH_MATPOWER
 
-__MATPOWERPIP_VERSION__ = "2.1.2"
+__MATPOWERPIP_VERSION__ = "2.1.3"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
