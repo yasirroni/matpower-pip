@@ -106,3 +106,12 @@ del matpower.egg-info -Recurse -Force
 py setup.py sdist
 twine upload dist/*
 ```
+
+## Developer install
+
+```powershell
+del matpower -Recurse -Force
+Xcopy /E /I backups\matpower-7.1 matpower
+copy matpowerpip\__init__.py matpower\__init__.py
+pip install -e .
+```

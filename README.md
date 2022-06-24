@@ -70,8 +70,8 @@ from matpower import start_instance
 
 m = start_instance()
 
-mpc = m.loadcase('case9');
-mpopt = m.mpoption('verbose', 2);
+mpc = m.loadcase('case9')
+mpopt = m.mpoption('verbose', 2)
 [baseMVA, bus, gen, gencost, branch, f, success, et] = m.runopf(mpc, mpopt, nout='max_nout')
 ```
 
@@ -138,7 +138,7 @@ mpc = m.runpf('case5', nargout=0)
 
 ### Octave
 
-1. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733
+1. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: <https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733>
 
 Impacted case:
 
@@ -177,7 +177,7 @@ This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER
 
 We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publication](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
 
-> M. Yasirroni, Sarjiya, "matpower-pip: Make MATPOWER installable from pypi", GitHub, 2021. [Online]. Available: https://github.com/yasirroni/matpower-pip.
+> M. Yasirroni, Sarjiya, "matpower-pip: Make MATPOWER installable from pypi", GitHub, 2021. [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
 
 If a journal publication from the author to appear soon should be cited instead.
 
