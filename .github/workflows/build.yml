@@ -20,12 +20,13 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'requirements-dev.txt'
 
+      # TODO: Support matpower 7.0
       - name: Download matpower
         run: |
-          curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpower.zip
-          unzip -xf matpower.zip
           ls
-          mv matpower-7.1 matpower
+          curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpower.zip
+          unzip matpower.zip -d matpower
+          ls
           cp matpowerpip\__init__.py matpower\__init__.py
 
       - name: Install requirements
