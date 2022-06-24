@@ -96,6 +96,8 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
 
 PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
 path_matpower = PATH_MATPOWER
+path_matpower_cases = os.path.join(path_matpower, 'data')
+cases = os.listdir(path_matpower_cases)
 
 __MATPOWERPIP_VERSION__ = "2.1.2"
 
