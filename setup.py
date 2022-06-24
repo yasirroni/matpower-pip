@@ -5,17 +5,17 @@ import setuptools
 current_path = os.path.abspath(os.path.dirname(__file__))
 
 version_line = open(os.path.join(current_path, 'matpower/__init__.py'), "rt").read()
-m = re.search(r"^_suffix = ['\"]([^'\"]*)['\"]", version_line, re.M)
-_suffix = m.group(1)
+m = re.search(r"^__MATPOWERPIP_VERSION__ = ['\"]([^'\"]*)['\"]", version_line, re.M)
+__MATPOWERPIP_VERSION__ = m.group(1)
 
 version_line = open(os.path.join(current_path, 'matpower/CHANGES.md'), "rt").read()
 m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
-MATPOWER_VERSION = m.group(0).split(" ")[1]
+__MATPOWER_VERSION__ = m.group(0).split(" ")[1]
 
-version_info = MATPOWER_VERSION.split(".")
+version_info = __MATPOWER_VERSION__.split(".")
 if len(version_info) == 2:
     version_info.append('0')
-version_info.append(_suffix)
+version_info.append(__MATPOWERPIP_VERSION__)
 
 __version__ = '.'.join(version_info)
 

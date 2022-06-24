@@ -1,10 +1,6 @@
 import os
 import re
 
-PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
-
-# to support `from matpower import path_matpower`
-path_matpower = PATH_MATPOWER
 
 def start_instance(path_matpower=None, engine='octave', add_path=True, save_path=False):
     """Start octave or matlab instance
@@ -97,17 +93,27 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
     m.rmpath(path_matpower)
     m.savepath()
 
-_suffix = "2.1.1"
+
+PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
+path_matpower = PATH_MATPOWER
+
+__MATPOWERPIP_VERSION__ = "2.1.1"
+
 try:
-    # matpower.__version__
     current_path = os.path.abspath(os.path.dirname(__file__))
     version_line = open(os.path.join(current_path, 'CHANGES.md'), "rt").read()
     m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
+    __MATPOWER_VERSION__ = m.group(0).split(" ")[1]
 
-    __version__ = m.group(0).split(" ")[1] + _suffix
-except: # TODO: proper except: can't find 'CHANGES.md'
-    # matpowerpip.__version__
-    __version__ = _suffix
+    version_info = __MATPOWER_VERSION__.split(".")
+    if len(version_info) == 2:
+        version_info.append('0')
+    version_info.append(__MATPOWERPIP_VERSION__)
+
+    __version__ = '.'.join(version_info)
+except FileNotFoundError:
+    print("Can't find matpower package. This package will work as pure matpowerpip package.")
+    __version__ = __MATPOWERPIP_VERSION__
 
 # TODO:
 # 1. Delete MATPOWER
