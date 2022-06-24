@@ -2,11 +2,6 @@ name: publish
 
 on:
   workflow_dispatch:
-    inputs:
-        name:
-          description: 'placeholder'
-          default: '-'
-          required: true
 
 jobs:
   deploy:
