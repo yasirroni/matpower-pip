@@ -140,13 +140,13 @@ mpc = m.runpf('case5', nargout=0)
 
 1. `m.runopf()` will make `mpc` contain unsupported `<object opf_model>`. See: <https://github.com/MATPOWER/matpower/issues/134#issuecomment-1007798733>
 
-Impacted case:
+    Impacted case:
 
     ```python
     r1 = m.runopf(mpc)
     ```
 
-Solution:
+    Solution:
 
     ```python
     m.push('mpc', mpc)
