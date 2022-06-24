@@ -23,8 +23,7 @@ jobs:
       - name: Download matpower
         run: |
           curl -L https://github.com/MATPOWER/matpower/releases/download/7.0/matpower7.0.zip > matpower.zip
-          tar -xf matpower.zip
-          del matpower.zip
+          unzip -xf matpower.zip
           mv matpower7.0 matpower
           cp matpowerpip\__init__.py matpower\__init__.py
 
