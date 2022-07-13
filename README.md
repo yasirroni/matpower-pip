@@ -134,6 +134,8 @@ m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `
 mpc = m.runpf('case5', nargout=0)
 ```
 
+You can explore other example on [notebooks](notebooks/).
+
 ## Known engine issue
 
 ### Octave
