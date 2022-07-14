@@ -95,6 +95,21 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
 
     return m
 
+def purge_matpower(path_matpower=None, session=None, engine='octave'):
+    if path_matpower is None:
+        path_matpower = PATH_MATPOWER
+
+    if session is None:
+        m = start_session(engine=engine)
+    else:
+        m = session
+
+    for i in m.path().split(';'):
+        if path_matpower in i:
+            m.rmpath(i)
+    m.savepath()
+    return m
+
 
 PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
 path_matpower = PATH_MATPOWER
