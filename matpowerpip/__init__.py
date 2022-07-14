@@ -2,13 +2,12 @@ import os
 import re
 
 
-def start_instance(path_matpower=None, engine='octave', add_path=True, save_path=False):
-    """Start octave or matlab instance
+def start_instance(path_matpower=None, engine='octave', save_path=False):
+    """Start octave or matlab instance by temporarily installing MATPOWER
 
     Args:
         path_matpower (str, optional): path to matpower. Defaults to None.
         engine (str, optional): name of engine to run `.m` file, either 'octave' or 'matlab'. Defaults to 'octave'.
-        add_path (bool, optional): add matpower to function path after start engine. Defaults to True.
         save_path (bool, optional): save the new path as default function path. Defaults to False.
 
     Raises:
@@ -20,14 +19,15 @@ def start_instance(path_matpower=None, engine='octave', add_path=True, save_path
 
     m = start_session(engine=engine)
 
-    if add_path:
-        if path_matpower is None:
-            path_matpower = PATH_MATPOWER
-            
-        if save_path:
-            m.eval(f"addpath(genpath('{path_matpower}')); savepath;")
-        else:
-            m.eval(f"addpath(genpath('{path_matpower}'))")
+    if path_matpower is None:
+        path_matpower = PATH_MATPOWER
+
+    m.addpath(path_matpower)
+    m.install_matpower(1, 0, 0)
+    m.rmpath(path_matpower)
+
+    if save_path:
+        m.savepath()
 
     return m
 
