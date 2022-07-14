@@ -115,3 +115,9 @@ Xcopy /E /I backups\matpower-7.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 pip install -e .
 ```
+
+## Tags
+
+```powershell
+git tag -a v2.1.4 -m "v2.1.4: Fix start instance and install"
+```
