@@ -104,7 +104,7 @@ def purge_matpower(path_matpower=None, session=None, engine='octave'):
     else:
         m = session
 
-    for i in m.path().split(';'):
+    for i in m.path().split(m.pathsep()):
         if path_matpower in i:
             m.rmpath(i)
     m.savepath()
