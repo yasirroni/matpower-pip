@@ -93,6 +93,8 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
     m.rmpath(path_matpower)
     m.savepath()
 
+    return m
+
 
 PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
 path_matpower = PATH_MATPOWER
