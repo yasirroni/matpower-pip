@@ -121,3 +121,9 @@ pip install -e .
 ```powershell
 git tag -a v2.1.4 -m "v2.1.4: Fix start instance and install"
 ```
+
+## Pandoc
+
+```powershell
+pandoc README.md -o README.pdf
+```

@@ -22,7 +22,7 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
 
 2. Install octave, write down the destination path.
 
-3. Open Environment Variable. You can access it by pressing <kbd>Windows-Key</kbd>, type `edit the system environment variables`, and press <kbd>&#9166;Enter</kbd> to search.
+3. Open Environment Variable. You can access it by pressing `Windows-Key`, type `edit the system environment variables`, and press `Enter` to search.
 
 4. Add new Environment Variable to execute `octave-cli`. The path is likely to be `C:\Program Files\octave-5.2.0-w64\mingw64\bin\octave-cli.exe`.
 
