@@ -38,7 +38,11 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
     pip install matpower[octave]
     ```
 
-## Extra (require `oct2py` or `matlab.engine`)
+## Usage
+
+See `notebooks/` for complete examples.
+
+## Running with engine (require `oct2py` or `matlab.engine`)
 
 If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used to run `octave` or `MATLAB` with `MATPOWER` path added. Default engine is `octave`. You also can use `mypower` for added functionality as shown in [`mypower tutorial`](https://github.com/yasirroni/mypower/blob/master/tutorial.py).
 
@@ -134,8 +138,6 @@ m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `
 mpc = m.runpf('case5', nargout=0)
 ```
 
-You can explore other example on [notebooks](notebooks/).
-
 ## Known engine issue
 
 ### Octave
@@ -182,6 +184,10 @@ We do request that publications derived from the use of `matpower-pip` explicitl
 > M. Yasirroni, Sarjiya, "matpower-pip: Make MATPOWER installable from pypi", GitHub, 2021. [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
 
 If a journal publication from the author to appear soon should be cited instead.
+
+## Contributing
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Acknowledgement
 
