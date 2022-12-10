@@ -37,5 +37,5 @@
     import matpower
 
     print(f"oct2py version: {oct2py.__version__}")
-    print(f"matpwoer version: {matpower.__version__}")
+    print(f"matpower version: {matpower.__version__}")
     ```
