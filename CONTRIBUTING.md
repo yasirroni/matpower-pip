@@ -26,6 +26,10 @@
     !pip install matpower matpowercaseframes --quiet
     ```
 
+    > *NOTE*
+    >
+    > If using `octave`, make sure to delete the output of the installation cell.
+
 1. Print `matpower` version. If used, also print the version of `oct2py`.
 
     ```python
