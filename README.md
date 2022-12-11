@@ -40,7 +40,7 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
 
 ## Usage
 
-See `notebooks/` for complete examples.
+See `notebooks/` for complete examples. All examples should be compatible with Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yasirroni/matpower-pip/blob/master)
 
 ## Running with engine (require `oct2py` or `matlab.engine`)
 

@@ -39,3 +39,11 @@
     print(f"oct2py version: {oct2py.__version__}")
     print(f"matpower version: {matpower.__version__}")
     ```
+
+## Print README.md
+
+Use pandoc and wkhtmltopdf to create README.pdf
+
+```shell
+pandoc --pdf-engine=wkhtmltopdf README.md -o README.pdf
+```
