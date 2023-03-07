@@ -1,7 +1,8 @@
-import os
 import inspect
+import os
 import shutil
 import urllib.request
+
 
 def download(matpower_version='7.1', destination=None, force=False, rename=True):
     if destination is None:
@@ -9,7 +10,7 @@ def download(matpower_version='7.1', destination=None, force=False, rename=True)
         destination = os.path.dirname(matpowerpip_dir)
 
     file_name = os.path.join(destination, "matpower.zip")
-    
+
     if os.path.exists(file_name):
         print("matpower.zip already exist in destination.")
         if force is True:
@@ -18,20 +19,21 @@ def download(matpower_version='7.1', destination=None, force=False, rename=True)
         else:
             print("Force is False, cancel download. Set force=True to force download.")
             return
-    
-    matpower_url = "https://github.com/MATPOWER/matpower/archive/refs/tags/" + matpower_version + ".zip"
+
+    matpower_url = (f"https://github.com/MATPOWER/matpower/archive/refs/tags/"
+                    f"{matpower_version}.zip")
 
     print("Downloading MATPOWER...")
     print(matpower_url)
-    urllib.request.urlretrieve(matpower_url, file_name) # source, dest
+    urllib.request.urlretrieve(matpower_url, file_name)  # source, dest
 
     shutil.unpack_archive(file_name, destination, 'zip')
-    
-    os.remove(file_name) # remove zipfile
-    
-    default_matpower_dir = os.path.join(destination,'matpower-' + matpower_version)
+
+    os.remove(file_name)  # remove zipfile
+
+    default_matpower_dir = os.path.join(destination, 'matpower-' + matpower_version)
     if rename:
-        renamed_name = os.path.join(destination,'matpower')
+        renamed_name = os.path.join(destination, 'matpower')
         if os.path.exists(renamed_name):
             print("Matpower folder already exist in path")
             if force is True:
@@ -48,17 +50,19 @@ def download(matpower_version='7.1', destination=None, force=False, rename=True)
         print(f"matpower saved on {default_matpower_dir}")
         return default_matpower_dir
 
+
 def copy_init(destination=None, matpower_version='7.1'):
     matpowerpip_dir = os.path.dirname(os.path.abspath(inspect.getfile(download)))
     source = os.path.join(matpowerpip_dir, "__init__.py")
 
     if destination is None:
         root_dir = os.path.dirname(matpowerpip_dir)
-        destination = os.path.join(root_dir,'matpower-' + matpower_version)
-    
+        destination = os.path.join(root_dir, 'matpower-' + matpower_version)
+
     destionation_ = os.path.join(destination, '__init__.py')
     if not os.path.exists(destionation_):
         shutil.copy2(source, destionation_)
+
 
 if __name__ == "__main__":
     destination = download()

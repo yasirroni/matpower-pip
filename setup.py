@@ -1,5 +1,6 @@
 import os
 import re
+
 import setuptools
 
 current_path = os.path.abspath(os.path.dirname(__file__))
@@ -28,6 +29,7 @@ def package_files(directory_list):
                 paths.append(os.path.join('..', path, filename))
     return paths
 
+
 extra_files = package_files([
     'matpower/data',
     'matpower/docker',
@@ -37,13 +39,13 @@ extra_files = package_files([
     'matpower/most',
     'matpower/mp-opt-model',
     'matpower/mptest'
-    ])
+])
 
 setuptools.setup(
-    version = __version__, # versions '0.0.x' are unstable and subject to refactor
-    package_data = {
+    version=__version__,  # versions '0.0.x' are unstable and subject to refactor
+    package_data={
         '': extra_files,
-        'matpower':[
+        'matpower': [
             'AUTHORS',
             'CHANGES.md',
             'CITATION',
@@ -51,6 +53,6 @@ setuptools.setup(
             'install_matpower.m',
             'LICENSE',
             'README.md'
-            ]
+        ]
     },
 )

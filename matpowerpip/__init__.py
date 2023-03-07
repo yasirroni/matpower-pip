@@ -3,18 +3,28 @@ import re
 
 
 def start_instance(path_matpower=None, engine='octave', save_path=False):
-    """Start octave or matlab instance by temporarily installing MATPOWER
+    """
+    Start octave or matlab instance by temporarily installing MATPOWER
 
-    Args:
-        path_matpower (str, optional): path to matpower. Defaults to None.
-        engine (str, optional): name of engine to run `.m` file, either 'octave' or 'matlab'. Defaults to 'octave'.
-        save_path (bool, optional): save the new path as default function path. Defaults to False.
+    Parameters
+    ----------
+    path_matpower : str, optional
+        String of path to matpower, by default None
+    engine : str, optional
+        Name of engine to run `.m` file, either 'octave' or 'matlab', by default
+        'octave'
+    save_path : bool, optional
+        Save the new path as default function path, by default False
 
-    Raises:
-        ValueError: unknown engine name.
+    Raises
+    -------
+    ImportError:
+    ValueError: unknown engine name.
 
-    Returns:
-        Oct2Py() or matlab.engine.start_matlab(): engine to run `.m` file
+    Returns
+    -------
+    Oct2Py() | matlab.engine.start_matlab()
+        Engine to run `.m` file
     """
 
     m = start_session(engine=engine)
@@ -31,6 +41,7 @@ def start_instance(path_matpower=None, engine='octave', save_path=False):
 
     return m
 
+
 def start_session(engine='octave'):
     if engine == 'octave':
         # TODO:
@@ -39,37 +50,76 @@ def start_session(engine='octave'):
             from oct2py import Oct2Py
             m = Oct2Py()
         except ImportError:
-            msg = f"No package named Oct2Py. Please install using `pip install matpower[octave]` or `pip install oct2py`."
+            msg = ("No package named Oct2Py. Please install using `pip install"
+                   " matpower[octave]` or `pip install oct2py`.")
             raise ImportError(msg)
     elif engine == 'matlab':
-        import matlab.engine
-        m = matlab.engine.start_matlab()
+        try:
+            import matlab.engine
+            m = matlab.engine.start_matlab()
+        except ImportError:
+            msg = ("No package named matlab. You can install Oct2Py as free alternative"
+                   " of matlab using `pip install matpower[octave]` or `pip install"
+                   " oct2py`.")
+            raise ImportError(msg)
     else:
-        msg = f"Unknown engine with name {engine}. Please choose between 'octave' or 'matlab'."
+        msg = (f"Unknown engine with name {engine}. Please choose between 'octave' or"
+               f"'matlab'.")
         raise ValueError(msg)
 
     return m
 
+
 def install_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
-    m = _install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='install')
+    m = _install_matpower(
+        path_matpower=path_matpower,
+        session=session,
+        engine=engine,
+        verbose=verbose,
+        process='install')
     return m
+
 
 def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
-    m = _install_matpower(path_matpower=path_matpower, session=session, engine=engine, verbose=verbose, process='uninstall')
+    m = _install_matpower(
+        path_matpower=path_matpower,
+        session=session,
+        engine=engine,
+        verbose=verbose,
+        process='uninstall')
     return m
 
-def _install_matpower(path_matpower=None, session=None, engine='octave', verbose=True, process='install'):
-    """Install MATPOWER using install_matpower.m
-    
+
+def _install_matpower(
+        path_matpower=None,
+        session=None,
+        engine='octave',
+        verbose=True,
+        process='install'):
+    """
+    Install MATPOWER using install_matpower.m
+
     The API of install_matpower.m might change.
     This version is based on MATPOWER 7.1 install_matpower.m
 
-    Args:
-        path_matpower (str, optional): path to matpower. Defaults to None.
-        session (optional): Oct2Py or matlab.engine object. Defaults to None.
-        engine (str, optional): name of engine to run `.m` file, either 'octave' or 'matlab'. Defaults to 'octave'.
-        verbose (bool, optional): verbosity of install_matpower. Defaults to True.
-        process (str, optional): install or uninstall. Defaults to 'install'.
+    Parameters
+    ----------
+    path_matpower : str, optional
+        String of path to matpower, by default None
+    session : oct2py.Oct2Py | matlab.engine, optional
+        oct2py.Oct2Py or matlab.engine object, by default None
+    engine : str, optional
+        Name of engine to run `.m` file, either 'octave' or 'matlab', by default
+        'octave'
+    verbose : bool, optional
+        Verbosity of install_matpower, by default True
+    process : str, optional
+        Install or uninstall, by default 'install'
+
+    Returns
+    -------
+    oct2py.Oct2Py | matlab.engine
+        oct2py.Oct2Py or matlab.engine session object.
     """
     if path_matpower is None:
         path_matpower = PATH_MATPOWER
@@ -94,6 +144,7 @@ def _install_matpower(path_matpower=None, session=None, engine='octave', verbose
     m.savepath()
 
     return m
+
 
 def purge_matpower(path_matpower=None, session=None, engine='octave'):
     if path_matpower is None:
@@ -131,7 +182,8 @@ try:
 
     __version__ = '.'.join(version_info)
 except FileNotFoundError:
-    print("Can't find matpower package. This package will work as pure matpowerpip package.")
+    print("Can't find matpower package. This package will work as pure matpowerpip"
+          " package.")
     __version__ = __MATPOWERPIP_VERSION__
 
 # TODO:
