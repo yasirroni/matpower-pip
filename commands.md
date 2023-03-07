@@ -46,9 +46,10 @@ py downloader.py
 With `matpowerpip`:
 
 ```python
-from matpowerpip.downloader import download_matpower
+from matpowerpip.downloader import download_matpower, copy_init
 
 download_matpower(matpower_version='8.0b1')
+copy_init()
 ```
 
 ## Delete dist

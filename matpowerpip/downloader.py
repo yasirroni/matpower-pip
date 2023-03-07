@@ -31,10 +31,13 @@ def download_matpower(
 
     print("Downloading MATPOWER...")
     print(matpower_url)
-    urllib.request.urlretrieve(matpower_url, file_name)  # source, dest
+
+    # TODO: use tempfile
+    zip_file = urllib.request.urlopen(matpower_url).read()
+    with open(file_name, 'wb') as f:
+        f.write(zip_file)
 
     shutil.unpack_archive(file_name, destination, 'zip')
-
     os.remove(file_name)  # remove zipfile
 
     default_matpower_dir = os.path.join(destination, 'matpower-' + matpower_version)
@@ -57,7 +60,7 @@ def download_matpower(
         return default_matpower_dir
 
 
-def copy_init(destination=None, matpower_version='7.1'):
+def copy_init(destination=None):
     matpowerpip_dir = os.path.dirname(
         os.path.abspath(inspect.getfile(download_matpower))
     )
@@ -65,7 +68,7 @@ def copy_init(destination=None, matpower_version='7.1'):
 
     if destination is None:
         root_dir = os.path.dirname(matpowerpip_dir)
-        destination = os.path.join(root_dir, 'matpower-' + matpower_version)
+        destination = os.path.join(root_dir, 'matpower')
 
     destination_ = os.path.join(destination, '__init__.py')
     if not os.path.exists(destination_):
@@ -74,4 +77,4 @@ def copy_init(destination=None, matpower_version='7.1'):
 
 if __name__ == "__main__":
     destination = download_matpower()
-    copy_init(destination=destination)
+    copy_init()

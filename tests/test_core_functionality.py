@@ -1,7 +1,8 @@
-import matpower
 import numpy as np
-from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__
 from oct2py import Oct2Py
+
+import matpower
+from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__
 
 """Test using pytest
     # normal test
