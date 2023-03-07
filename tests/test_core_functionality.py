@@ -7,7 +7,14 @@ from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__
 
 
 """Test using pytest
-    pytest -rA -c pyproject.toml --cov-report term --cov=matpower tests/
+    # normal test
+    pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
+
+    # complete test, including example notebooks
+    pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+
+    # only run last failed test
+    pytest -n auto --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 """
 
 def check_path_matpower_in_path(m):

@@ -47,5 +47,41 @@ Source = "https://github.com/yasirroni/matpower-pip"
 [tool.setuptools]
 packages = ["matpower"]
 
+[tool.autopep8]
+in-place = true
+recursive = true
+verbose = true
+max_line_length = 88
+ignore = []
+aggressive = 10
+
+[tool.ruff]
+fix = true
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "B90",  # support <3.10
+]
+
 [tool.pytest.ini_options]
-norecursedirs =["hooks", "*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__"]
+testpaths = ["tests", "notebooks"]
+norecursedirs = ["hooks", "*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__", ".ipynb_checkpoints"]
+
+[tool.coverage.run]
+source = ["tests", "notebooks"]
+
+[coverage.paths]
+source = "matpower"
+
+[coverage.run]
+branch = true
+
+[coverage.report]
+show_missing = true
