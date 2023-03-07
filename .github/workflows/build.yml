@@ -48,4 +48,4 @@ jobs:
 
       - name: Test package
         run: |
-          pytest -rA -c pyproject.toml --cov-report term --cov=matpower tests/
+          pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
