@@ -39,19 +39,8 @@ extra_files = package_files([
     'matpower/mptest'
     ])
 
-with open("README.md", "r") as f:
-    long_description = f.read()
-
 setuptools.setup(
-    name = "matpower",
     version = __version__, # versions '0.0.x' are unstable and subject to refactor
-    author = "Muhammad Yasirroni",
-    author_email = "muhammadyasirroni@gmail.com",
-    description = "Make MATPOWER installable from pypi.",
-    long_description = long_description,
-    url = "https://github.com/yasirroni/matpower-pip",
-    long_description_content_type = "text/markdown",
-    packages = ["matpower"],
     package_data = {
         '': extra_files,
         'matpower':[
@@ -64,14 +53,4 @@ setuptools.setup(
             'README.md'
             ]
     },
-    classifiers = [
-        "Programming Language :: Python",
-        "Topic :: Scientific/Engineering"
-    ],
-    python_requires = '>=3.7.*',
-    extras_require={
-        "octave": [
-            "oct2py>=5.5.1",
-        ],
-    }
 )

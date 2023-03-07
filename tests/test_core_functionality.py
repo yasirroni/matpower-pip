@@ -7,7 +7,6 @@ from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__
 
 
 """Test using pytest
-
     pytest -rA -c pyproject.toml --cov-report term --cov=matpower tests/
 """
 

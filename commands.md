@@ -95,6 +95,17 @@ py setup.py sdist
 twine upload dist/*
 ```
 
+Using build
+
+```powershell
+python -m build
+twine upload dist/*
+```
+
+```powershell
+twine check dist/*
+```
+
 ## Push update
 
 ```powershell
