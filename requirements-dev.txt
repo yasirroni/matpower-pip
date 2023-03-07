@@ -1,6 +1,6 @@
-numpy>=1.19.0
+numpy>=1.21.5
 oct2py>=5.5.1
-matplotlib>=3.7.1
+matplotlib>=3.5.3
 pytest
 pytest-cov
 pytest-xdist
