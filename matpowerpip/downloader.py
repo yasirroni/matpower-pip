@@ -4,9 +4,15 @@ import shutil
 import urllib.request
 
 
-def download(matpower_version='7.1', destination=None, force=False, rename=True):
+def download_matpower(
+        matpower_version='7.1',
+        destination=None,
+        force=False,
+        rename=True):
     if destination is None:
-        matpowerpip_dir = os.path.dirname(os.path.abspath(inspect.getfile(download)))
+        matpowerpip_dir = os.path.dirname(
+            os.path.abspath(inspect.getfile(download_matpower))
+        )
         destination = os.path.dirname(matpowerpip_dir)
 
     file_name = os.path.join(destination, "matpower.zip")
@@ -52,18 +58,20 @@ def download(matpower_version='7.1', destination=None, force=False, rename=True)
 
 
 def copy_init(destination=None, matpower_version='7.1'):
-    matpowerpip_dir = os.path.dirname(os.path.abspath(inspect.getfile(download)))
+    matpowerpip_dir = os.path.dirname(
+        os.path.abspath(inspect.getfile(download_matpower))
+    )
     source = os.path.join(matpowerpip_dir, "__init__.py")
 
     if destination is None:
         root_dir = os.path.dirname(matpowerpip_dir)
         destination = os.path.join(root_dir, 'matpower-' + matpower_version)
 
-    destionation_ = os.path.join(destination, '__init__.py')
-    if not os.path.exists(destionation_):
-        shutil.copy2(source, destionation_)
+    destination_ = os.path.join(destination, '__init__.py')
+    if not os.path.exists(destination_):
+        shutil.copy2(source, destination_)
 
 
 if __name__ == "__main__":
-    destination = download()
+    destination = download_matpower()
     copy_init(destination=destination)

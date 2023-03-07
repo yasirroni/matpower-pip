@@ -43,12 +43,12 @@ cd matpowerpip
 py downloader.py
 ```
 
-With `matpowerpip` (require `oct2py`):
+With `matpowerpip`:
 
 ```python
-import matpowerpip
+from matpowerpip.downloader import download_matpower
 
-matpowerpip.downloader.download()
+download_matpower(matpower_version='8.0b1')
 ```
 
 ## Delete dist

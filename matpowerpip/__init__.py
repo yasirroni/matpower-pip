@@ -162,11 +162,6 @@ def purge_matpower(path_matpower=None, session=None, engine='octave'):
     return m
 
 
-PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
-path_matpower = PATH_MATPOWER
-path_matpower_cases = os.path.join(path_matpower, 'data')
-cases = os.listdir(path_matpower_cases)
-
 __MATPOWERPIP_VERSION__ = "2.1.4"
 
 try:
@@ -181,10 +176,21 @@ try:
     version_info.append(__MATPOWERPIP_VERSION__)
 
     __version__ = '.'.join(version_info)
+
+    PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
+    path_matpower = PATH_MATPOWER  # used for alias
+    path_matpower_cases = os.path.join(path_matpower, 'data')
+    cases = os.listdir(path_matpower_cases)
+
 except FileNotFoundError:
     print("Can't find matpower package. This package will work as pure matpowerpip"
           " package.")
     __version__ = __MATPOWERPIP_VERSION__
+    PATH_MATPOWER = None
+    path_matpower = PATH_MATPOWER  # used for alias
+    path_matpower_cases = None
+    cases = []
+
 
 # TODO:
 # 1. Delete MATPOWER
