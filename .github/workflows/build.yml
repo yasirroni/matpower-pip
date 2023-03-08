@@ -63,5 +63,5 @@ jobs:
 
       - name: Test package
         run: |
-          pip install jupyter_client ipykernel --upgrade
+          pip install jupyter_client ipykernel ipython --upgrade
           pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
