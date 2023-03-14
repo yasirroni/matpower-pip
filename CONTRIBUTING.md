@@ -6,7 +6,7 @@
 
     ```shell
     pip install nb-clean
-    nb-clean add-filter -M --preserve-outputs
+    nb-clean add-filter -M --preserve-cell-outputs
     ```
 
 1. Make sure to make the example compatible with `google-colab==1.0.0`. You can use below commands (optional).
@@ -17,13 +17,18 @@
     !sudo apt-get -qq install octave octave-signal liboctave-dev
 
     # # install oct2py that compatible with colab
-    # google-colab 1.0.0 requires ipykernel~=5.3.4.
-    # google-colab 1.0.0 requires ipython~=7.9.0.
-    # google-colab 1.0.0 requires tornado~=6.0.4.
-    !pip install --quiet ipykernel==5.3.4 ipython==7.9.0 tornado==6.0.4 oct2py
+    import os
+    from pkg_resources import get_distribution
+
+    os.system(f"pip install -qq"
+              f" ipykernel=={get_distribution('ipykernel').version}"
+              f" ipython=={get_distribution('ipython').version}"
+              f" tornado=={get_distribution('tornado').version}"
+              f" oct2py"
+              )
 
     # install packages
-    !pip install matpower matpowercaseframes --quiet
+    !pip install -qq matpower matpowercaseframes
     ```
 
     > *NOTE*
