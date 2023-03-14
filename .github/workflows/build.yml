@@ -24,6 +24,7 @@ jobs:
 
   build:
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
         platform: [octave]
@@ -63,4 +64,5 @@ jobs:
 
       - name: Test package
         run: |
+          pip install --upgrade --no-cache-dir --force-reinstall --ignore-installed jupyter_client ipykernel ipython tornado
           pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
