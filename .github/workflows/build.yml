@@ -63,5 +63,5 @@ jobs:
 
       - name: Test package
         run: |
-          pip install jupyter_client ipykernel ipython tornado --upgrade --no-cache-dir
+          pip install --upgrade --no-cache-dir --force-reinstall --ignore-installed jupyter_client ipykernel ipython tornado
           pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
