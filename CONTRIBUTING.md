@@ -9,6 +9,12 @@
     nb-clean add-filter -M --preserve-cell-outputs
     ```
 
+    for single run:
+
+    ```shell
+    nb-clean clean -M --preserve-cell-outputs PATH
+    ```
+
 1. Make sure to make the example compatible with `google-colab==1.0.0`. You can use below commands (optional).
 
     ```ipython
