@@ -162,7 +162,7 @@ def purge_matpower(path_matpower=None, session=None, engine='octave'):
     return m
 
 
-__MATPOWERPIP_VERSION__ = "2.1.4"
+__MATPOWERPIP_VERSION__ = "2.1.5"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
