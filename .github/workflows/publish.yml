@@ -49,6 +49,9 @@ jobs:
 
   deploy:
     needs: build
+    strategy:
+      matrix:
+        matpower-version: ["7.0", "7.1"]
 
     runs-on: ubuntu-latest
 
