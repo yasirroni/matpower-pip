@@ -27,6 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        matpower-version: ["7.0", "7.1", "8.0b1"]
         platform: [octave]
 
     runs-on: ubuntu-latest
@@ -47,11 +48,11 @@ jobs:
         uses: MATPOWER/action-install-octave-linux@v1
 
       # TODO: Support matpower 7.0
-      - name: Download matpower
+      - name: Download matpower ${{ matrix.python-version }}
         run: |
-          curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpower.zip
+          curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/${{ matrix.matpower-version }}.zip > matpower.zip
           unzip matpower.zip -d temps
-          mv temps/matpower-7.1 matpower
+          mv temps/matpower-${{ matrix.matpower-version }} matpower
           cp matpowerpip/__init__.py matpower/__init__.py
 
       - name: Install requirements
