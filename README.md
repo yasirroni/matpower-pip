@@ -62,6 +62,16 @@ mpc = m.runpf(mpc)
 ```
 
 ```python
+from matpower import Matpower
+
+with Matpower(engine='octave') as m:  # run as context manager
+    mpc = m.eval('case9', verbose=False)
+    mpc = m.runpf(mpc)
+
+print(m._engine is None)  # engine cleanly terminated
+```
+
+```python
 from matpower import path_matpower
 
 print(path_matpower) # matpower installation location
