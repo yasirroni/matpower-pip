@@ -2,6 +2,16 @@ import os
 import re
 
 
+class Matpower():
+    # !WARNING: not tested under MATLAB
+    def __new__(cls, path_matpower=None, engine='octave', save_path=False):
+        return start_instance(path_matpower=path_matpower,
+                              engine=engine,
+                              save_path=save_path)
+
+    # TODO: support install, uninstall, etc
+
+
 def start_instance(path_matpower=None, engine='octave', save_path=False):
     """
     Start octave or matlab instance by temporarily installing MATPOWER
@@ -33,7 +43,7 @@ def start_instance(path_matpower=None, engine='octave', save_path=False):
         path_matpower = PATH_MATPOWER
 
     m.addpath(path_matpower)
-    m.install_matpower(1, 0, 0)
+    m.install_matpower(1, 0, 0)  # TODO: explain what is (1, 0, 0)
     m.rmpath(path_matpower)
 
     if save_path:

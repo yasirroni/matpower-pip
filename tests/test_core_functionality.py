@@ -2,16 +2,19 @@ import numpy as np
 from oct2py import Oct2Py
 
 import matpower
-from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__
+from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 
 """Test using pytest
     # normal test
+    copy matpowerpip\__init__.py matpower\__init__.py
     pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
 
     # complete test, including example notebooks
+    copy matpowerpip\__init__.py matpower\__init__.py
     pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 
     # only run last failed test
+    copy matpowerpip\__init__.py matpower\__init__.py
     pytest -n auto --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 """
 
@@ -24,6 +27,20 @@ def check_path_matpower_in_path(m):
             break
     return MATPOWER_IN_PATH
 
+
+def run_matpower(m):
+    mpc = m.loadcase('case9')
+    case9_gencost_val = np.array(
+        [[2.000e+00, 1.500e+03, 0.000e+00, 3.000e+00, 1.100e-01, 5.000e+00, 1.500e+02],
+         [2.000e+00, 2.000e+03, 0.000e+00, 3.000e+00, 8.500e-02, 1.200e+00, 6.000e+02],
+         [2.000e+00, 3.000e+03, 0.000e+00, 3.000e+00, 1.225e-01, 1.000e+00, 3.350e+02]]
+    )
+    assert np.allclose(mpc.gencost, case9_gencost_val)
+
+    # TODO: test runpf able to change mpc
+    mpc = m.runpf(mpc)
+
+    return mpc
 
 def test_version():
     print(f"matpower.__version__: {matpower.__version__}")
@@ -38,13 +55,7 @@ def test_path():
 
 def test_instance_octave():
     m = matpower.start_instance(engine='octave')
-    mpc = m.loadcase('case9')
-    case9_gencost_val = np.array(
-        [[2.000e+00, 1.500e+03, 0.000e+00, 3.000e+00, 1.100e-01, 5.000e+00, 1.500e+02],
-         [2.000e+00, 2.000e+03, 0.000e+00, 3.000e+00, 8.500e-02, 1.200e+00, 6.000e+02],
-         [2.000e+00, 3.000e+03, 0.000e+00, 3.000e+00, 1.225e-01, 1.000e+00, 3.350e+02]]
-    )
-    assert np.allclose(mpc.gencost, case9_gencost_val)
+    run_matpower(m)
 
 
 def test_matpower_install():
@@ -77,3 +88,26 @@ def test_matpower_install():
     m = Oct2Py()
     MATPOWER_IN_PATH = check_path_matpower_in_path(m)
     assert MATPOWER_IN_PATH is False
+
+
+def test_matpower_as_class_octave():
+    m = Matpower(engine='octave')
+    run_matpower(m)
+
+
+
+def test_context_manager():
+    """Make sure matpwoer works within a context manager"""
+
+    case9_gencost_val = np.array(
+        [[2.000e+00, 1.500e+03, 0.000e+00, 3.000e+00, 1.100e-01, 5.000e+00, 1.500e+02],
+         [2.000e+00, 2.000e+03, 0.000e+00, 3.000e+00, 8.500e-02, 1.200e+00, 6.000e+02],
+         [2.000e+00, 3.000e+03, 0.000e+00, 3.000e+00, 1.225e-01, 1.000e+00, 3.350e+02]]
+    )
+
+    with Matpower(engine='octave') as m:
+        mpc = run_matpower(m)
+
+    # test value outside context
+    assert np.allclose(mpc.gencost, case9_gencost_val)
+    assert m._engine is None
