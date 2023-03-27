@@ -1,6 +1,8 @@
 # matpower-pip
 
-Make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`pypi`](https://pypi.org/project/matpower/). This package make `MATPOWER` copy (currently Version `7.1`) as `python package`. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package
+
+This package is inteded to make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`PyPI`](https://pypi.org/project/matpower/). We did not change anything from `MATPOWER` package, instead we use a copy of `MATPOWER` (currently Version `7.1`) and wrap it as `python package` published on PyPI. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
 
 This project also listed on [related links](https://matpower.org/related-links/) on matpower official website. Please visit that site to find other useful resources.
 
@@ -191,7 +193,16 @@ This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER
 
 We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publication](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
 
-> M. Yasirroni, Sarjiya, "matpower-pip: Make MATPOWER installable from pypi", GitHub, 2021. [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
+> M. Yasirroni, Sarjiya, and L. M. Putranto, "matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package," [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
+
+```bibtex
+@misc{matpower-pip,
+  author = {Yasirroni, M. and Sarjiya and Putranto, L. M.},
+  title = {matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package},
+  year = {2023},
+  howpublished = {\url{https://github.com/yasirroni/matpower-pip}},
+}
+```
 
 If a journal publication from the author to appear soon should be cited instead.
 

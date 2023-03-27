@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "matpower"
-description = 'Make MATPOWER installable from PyPI.'
+description = 'matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package'
 readme = "README.md"
 requires-python = ">=3.7.1"
 keywords = []
