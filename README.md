@@ -18,27 +18,7 @@ pip install matpower
 
 ### `oct2py` (Windows)
 
-For callable `matpower` via `oct2py` (require octave on environment system `PATH`):
-
-1. Download [octave](https://www.gnu.org/software/octave/download.html).
-
-2. Install octave, write down the destination path.
-
-3. Open Environment Variable. You can access it by pressing `Windows-Key`, type `edit the system environment variables`, and press `Enter` to search.
-
-4. Add new Environment Variable to execute `octave-cli`. The path is likely to be `C:\Program Files\octave-5.2.0-w64\mingw64\bin\octave-cli.exe`.
-
-    Variable name: `OCTAVE_EXECUTABLE`
-
-    Variable value: `location:\\of\\octave\\bin\\octave-cli.exe`
-
-5. Restart computer to make `os.environ` recognize the new path.
-
-6. Install `matpower` that include `oct2py`.
-
-    ```plaintext
-    pip install matpower[octave]
-    ```
+For callable `matpower` via `oct2py` (require octave on environment system `PATH`). You can follow the [oct2py instalation tutorial in mypower repository](https://github.com/yasirroni/mypower/blob/master/README_INSTALL_OCTAVE_AND_OCT2PY.md).
 
 ## Usage
 
