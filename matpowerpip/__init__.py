@@ -176,7 +176,8 @@ __MATPOWERPIP_VERSION__ = "2.1.6"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
-    version_line = open(os.path.join(current_path, 'CHANGES.md'), "rt").read()
+    with open(os.path.join(current_path, 'CHANGES.md'), "rt", encoding="utf-8") as file:
+        version_line = file.read()
     m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
     __MATPOWER_VERSION__ = m.group(0).split(" ")[1]
 
