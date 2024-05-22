@@ -5,6 +5,7 @@ matplotlib>=3.5.3
 openpyxl>=3.1.2
 
 matpowercaseframes>=1.0.7
+pypglib>=0.0.1
 
 pytest
 pytest-cov
