@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Clone this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Clone this repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v4
