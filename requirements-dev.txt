@@ -13,3 +13,5 @@ pytest-xdist
 
 jupyter
 nbmake
+
+setuptools

@@ -62,16 +62,18 @@ pip install -r requirements.txt
     !sudo apt-get -qq update
     !sudo apt-get -qq install octave octave-signal liboctave-dev
 
-    # # install oct2py that compatible with colab
+    # install oct2py that compatible with colab
     import os
+
     from pkg_resources import get_distribution
 
-    os.system(f"pip install -qq"
-              f" ipykernel=={get_distribution('ipykernel').version}"
-              f" ipython=={get_distribution('ipython').version}"
-              f" tornado=={get_distribution('tornado').version}"
-              f" oct2py"
-              )
+    os.system(
+        f"pip install -qq"
+        f" ipykernel=={get_distribution('ipykernel').version}"
+        f" ipython=={get_distribution('ipython').version}"
+        f" tornado=={get_distribution('tornado').version}"
+        f" oct2py"
+    )
 
     # install packages
     !pip install -qq matpower matpowercaseframes
