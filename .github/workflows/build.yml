@@ -51,7 +51,7 @@ jobs:
           sudo apt -qq update > /dev/null 2>&1
           sudo apt -y -qq install liboctave-dev octave > /dev/null 2>&1
 
-      - name: Download matpower ${{ matrix.python-version }}
+      - name: Download matpower ${{ matrix.matpower-version }}
         run: |
           curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/${{ matrix.matpower-version }}.zip > matpower.zip
           unzip matpower.zip -d temps
