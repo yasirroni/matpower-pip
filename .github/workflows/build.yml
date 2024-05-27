@@ -57,7 +57,7 @@ jobs:
 
       - name: Install package
         run: |
-          pip install -e .[dev]
+          pip install -e .[dev] --upgrade
 
       - name: Test package
         run: |

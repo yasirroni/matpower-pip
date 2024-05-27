@@ -35,16 +35,13 @@ jobs:
           mv temps/matpower-${{ matrix.matpower-version }} matpower
           cp matpowerpip/__init__.py matpower/__init__.py
 
-      - name: Install requirements
-        run: |
-          pip install -r requirements-dev.txt
-
       - name: Install package
         run: |
-          pip install -e .
+          pip install -e .[dev] --upgrade
 
       - name: Test package
         run: |
+          pip install --upgrade --no-cache-dir --force-reinstall jupyter_client ipykernel ipython tornado
           pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 
   deploy:
