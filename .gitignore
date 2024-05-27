@@ -9,9 +9,10 @@ backups/
 # Token
 .pypirc
 
-# Playground
+# Private
 playgrounds/
 playground.ipynb
+.private/
 
 # Editor
 .vscode/
