@@ -2,17 +2,17 @@ import os
 import re
 
 
-class Matpower():
+class Matpower:
     # !WARNING: not tested under MATLAB
-    def __new__(cls, path_matpower=None, engine='octave', save_path=False):
-        return start_instance(path_matpower=path_matpower,
-                              engine=engine,
-                              save_path=save_path)
+    def __new__(cls, path_matpower=None, engine="octave", save_path=False):
+        return start_instance(
+            path_matpower=path_matpower, engine=engine, save_path=save_path
+        )
 
     # TODO: support install, uninstall, etc
 
 
-def start_instance(path_matpower=None, engine='octave', save_path=False):
+def start_instance(path_matpower=None, engine="octave", save_path=False):
     """
     Start octave or matlab instance by temporarily installing MATPOWER
 
@@ -52,60 +52,67 @@ def start_instance(path_matpower=None, engine='octave', save_path=False):
     return m
 
 
-def start_session(engine='octave'):
-    if engine == 'octave':
+def start_session(engine="octave"):
+    if engine == "octave":
         # TODO:
         # Tell user to use `pip install matpower[octave]` or `pip install oct2py`
         try:
             from oct2py import Oct2Py
+
             m = Oct2Py()
         except ImportError:
-            msg = ("No package named Oct2Py. Please install using `pip install"
-                   " matpower[octave]` or `pip install oct2py`.")
+            msg = (
+                "No package named Oct2Py. Please install using `pip install"
+                " matpower[octave]` or `pip install oct2py`."
+            )
             raise ImportError(msg)
-    elif engine == 'matlab':
+    elif engine == "matlab":
         try:
             import matlab.engine
+
             m = matlab.engine.start_matlab()
         except ImportError:
-            msg = ("No package named matlab. You can install Oct2Py as free alternative"
-                   " of matlab using `pip install matpower[octave]` or `pip install"
-                   " oct2py`.")
+            msg = (
+                "No package named matlab. You can install Oct2Py as free alternative"
+                " of matlab using `pip install matpower[octave]` or `pip install"
+                " oct2py`."
+            )
             raise ImportError(msg)
     else:
-        msg = (f"Unknown engine with name {engine}. Please choose between 'octave' or"
-               f"'matlab'.")
+        msg = (
+            f"Unknown engine with name {engine}. Please choose between 'octave' or"
+            f"'matlab'."
+        )
         raise ValueError(msg)
 
     return m
 
 
-def install_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+def install_matpower(path_matpower=None, session=None, engine="octave", verbose=True):
     m = _install_matpower(
         path_matpower=path_matpower,
         session=session,
         engine=engine,
         verbose=verbose,
-        process='install')
+        process="install",
+    )
     return m
 
 
-def uninstall_matpower(path_matpower=None, session=None, engine='octave', verbose=True):
+def uninstall_matpower(path_matpower=None, session=None, engine="octave", verbose=True):
     m = _install_matpower(
         path_matpower=path_matpower,
         session=session,
         engine=engine,
         verbose=verbose,
-        process='uninstall')
+        process="uninstall",
+    )
     return m
 
 
 def _install_matpower(
-        path_matpower=None,
-        session=None,
-        engine='octave',
-        verbose=True,
-        process='install'):
+    path_matpower=None, session=None, engine="octave", verbose=True, process="install"
+):
     """
     Install MATPOWER using install_matpower.m
 
@@ -145,7 +152,7 @@ def _install_matpower(
         verbose = 0
 
     m.addpath(path_matpower)
-    if process == 'install':
+    if process == "install":
         m.install_matpower(1, 1, verbose, 0)
     else:
         m.install_matpower(0, 0, verbose, 1)
@@ -156,7 +163,7 @@ def _install_matpower(
     return m
 
 
-def purge_matpower(path_matpower=None, session=None, engine='octave'):
+def purge_matpower(path_matpower=None, session=None, engine="octave"):
     if path_matpower is None:
         path_matpower = PATH_MATPOWER
 
@@ -176,26 +183,28 @@ __MATPOWERPIP_VERSION__ = "2.1.6"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(current_path, 'CHANGES.md'), "rt", encoding="utf-8") as file:
+    with open(os.path.join(current_path, "CHANGES.md"), "rt", encoding="utf-8") as file:
         version_line = file.read()
     m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
     __MATPOWER_VERSION__ = m.group(0).split(" ")[1]
 
     version_info = __MATPOWER_VERSION__.split(".")
     if len(version_info) == 2:
-        version_info.append('0')
+        version_info.append("0")
     version_info.append(__MATPOWERPIP_VERSION__)
 
-    __version__ = '.'.join(version_info)
+    __version__ = ".".join(version_info)
 
     PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
     path_matpower = PATH_MATPOWER  # used for alias
-    path_matpower_cases = os.path.join(path_matpower, 'data')
+    path_matpower_cases = os.path.join(path_matpower, "data")
     cases = os.listdir(path_matpower_cases)
 
 except FileNotFoundError:
-    print("Can't find matpower package. This package will work as pure matpowerpip"
-          " package.")
+    print(
+        "Can't find matpower package. This package will work as pure matpowerpip"
+        " package."
+    )
     __version__ = __MATPOWERPIP_VERSION__
     PATH_MATPOWER = None
     path_matpower = PATH_MATPOWER  # used for alias

@@ -1,18 +1,58 @@
 # Contributing to matpower-pip
 
+## Environment
+
+To install Python 3.12 environment, use:
+
+```shell
+python3.12 -m venv env
+```
+
+To activate Python environment, use:
+
+   Linux and macOS:
+
+   ```bash
+   source env/bin/activate
+   ```
+
+   Windows - PowerShell
+
+   ```bash
+   env\Scripts\Activate.ps1
+   ```
+
+   Windows - Command Prompt
+
+   ```bash
+   env\Scripts\activate
+   ```
+
+To deactivate the Python environment, use:
+
+```shell
+deactivate
+```
+
+## Install requirements
+
+```shell
+pip install -r requirements.txt
+```
+
 ## Notebook example
 
 1. Use `nb-clean` to clean the notebook.
 
     ```shell
     pip install nb-clean
-    nb-clean add-filter -M --preserve-cell-outputs
+    nb-clean add-filter
     ```
 
     for single run:
 
     ```shell
-    nb-clean clean -M --preserve-cell-outputs PATH
+    nb-clean clean PATH
     ```
 
 1. Make sure to make the example compatible with `google-colab==1.0.0`. You can use below commands (optional).

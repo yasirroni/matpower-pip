@@ -13,3 +13,6 @@ pytest-xdist
 
 jupyter
 nbmake
+
+pre-commit
+nb-clean

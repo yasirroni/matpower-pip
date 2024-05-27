@@ -5,10 +5,8 @@ import urllib.request
 
 
 def download_matpower(
-        matpower_version='7.1',
-        destination=None,
-        force=False,
-        rename=True):
+    matpower_version="7.1", destination=None, force=False, rename=True
+):
     if destination is None:
         matpowerpip_dir = os.path.dirname(
             os.path.abspath(inspect.getfile(download_matpower))
@@ -26,23 +24,25 @@ def download_matpower(
             print("Force is False, cancel download. Set force=True to force download.")
             return
 
-    matpower_url = (f"https://github.com/MATPOWER/matpower/archive/refs/tags/"
-                    f"{matpower_version}.zip")
+    matpower_url = (
+        f"https://github.com/MATPOWER/matpower/archive/refs/tags/"
+        f"{matpower_version}.zip"
+    )
 
     print("Downloading MATPOWER...")
     print(matpower_url)
 
     # TODO: use tempfile
     zip_file = urllib.request.urlopen(matpower_url).read()
-    with open(file_name, 'wb') as f:
+    with open(file_name, "wb") as f:
         f.write(zip_file)
 
-    shutil.unpack_archive(file_name, destination, 'zip')
+    shutil.unpack_archive(file_name, destination, "zip")
     os.remove(file_name)  # remove zipfile
 
-    default_matpower_dir = os.path.join(destination, 'matpower-' + matpower_version)
+    default_matpower_dir = os.path.join(destination, "matpower-" + matpower_version)
     if rename:
-        renamed_name = os.path.join(destination, 'matpower')
+        renamed_name = os.path.join(destination, "matpower")
         if os.path.exists(renamed_name):
             print("Matpower folder already exist in path")
             if force is True:
@@ -68,9 +68,9 @@ def copy_init(destination=None):
 
     if destination is None:
         root_dir = os.path.dirname(matpowerpip_dir)
-        destination = os.path.join(root_dir, 'matpower')
+        destination = os.path.join(root_dir, "matpower")
 
-    destination_ = os.path.join(destination, '__init__.py')
+    destination_ = os.path.join(destination, "__init__.py")
     if not os.path.exists(destination_):
         shutil.copy2(source, destination_)
 
