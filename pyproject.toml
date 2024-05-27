@@ -52,20 +52,10 @@ Source = "https://github.com/yasirroni/matpower-pip"
 [tool.setuptools]
 packages = ["matpower"]
 
-[tool.autopep8]
-in-place = true
-recursive = true
-verbose = true
-max_line_length = 88
-ignore = [
-  "E402",  # temporarily due to nbqa did not support [tool.autopep8.per-file-ignores]
-]
-aggressive = 10
-
 [tool.ruff]
 fix = true
 line-length = 88
-select = [
+lint.select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
@@ -73,12 +63,12 @@ select = [
     "C",  # flake8-comprehensions
     "B",  # flake8-bugbear
 ]
-ignore = [
+lint.ignore = [
     "B90",  # support <3.10
     "E402",  # temporarily due to nbqa did not support [tool.ruff.per-file-ignores]
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/test_core_functionality.py" = ["E501"]
 "notebooks/add_new_row.ipynb" = ["E402"]
 "notebooks/inspect_mpc.ipynb" = ["E402"]

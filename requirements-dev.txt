@@ -14,5 +14,6 @@ pytest-xdist
 jupyter
 nbmake
 
-pre-commit
-nb-clean
+pre-commit==3.7.1
+nb-clean==3.2.0
+ruff==0.4.5
