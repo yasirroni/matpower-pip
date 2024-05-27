@@ -46,7 +46,10 @@ jobs:
 
       - name: Install Octave (Linux)
         if: matrix.platform == 'octave'
-        uses: MATPOWER/action-install-octave-linux@v1
+        run: |
+          sudo apt-add-repository -y ppa:ubuntuhandbook1/octave > /dev/null 2>&1
+          sudo apt -qq update > /dev/null 2>&1
+          sudo apt -y -qq install liboctave-dev octave > /dev/null 2>&1
 
       - name: Download matpower ${{ matrix.python-version }}
         run: |

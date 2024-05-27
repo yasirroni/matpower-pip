@@ -59,8 +59,9 @@ pip install -r requirements.txt
 
     ```ipython
     # install octave
-    !sudo apt-get -qq update
-    !sudo apt-get -qq install octave octave-signal liboctave-dev
+    !sudo apt-add-repository -y ppa:ubuntuhandbook1/octave > /dev/null 2>&1
+    !sudo apt -qq update > /dev/null 2>&1
+    !sudo apt -y -qq install liboctave-dev octave > /dev/null 2>&1
 
     # install oct2py that compatible with colab
     import os
