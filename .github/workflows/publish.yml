@@ -38,9 +38,10 @@ jobs:
           mv temps/matpower-${{ matrix.matpower-version }} matpower
           cp matpowerpip/__init__.py matpower/__init__.py
 
-      - name: Install package
+      - name: Install package and requirements
         run: |
-          pip install -e .[dev] --upgrade
+          pip install -e ."[dev]"
+          pip install -Ur requirements-dev.txt
 
       - name: Test package
         run: |

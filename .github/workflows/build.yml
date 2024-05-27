@@ -60,7 +60,8 @@ jobs:
 
       - name: Install package
         run: |
-          pip install -e .[dev] --upgrade
+          pip install -e ."[dev]"
+          pip install -Ur requirements-dev.txt
 
       - name: Test package
         run: |
