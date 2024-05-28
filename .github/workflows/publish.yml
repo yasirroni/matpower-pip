@@ -40,8 +40,8 @@ jobs:
 
       - name: Upgrade requirements
         run: |
-          pip install pur
-          pur -r requirements-dev.txt
+          pip install pru --upgrade
+          pru -r requirements-dev.txt
 
       - name: Install requirements
         run: pip install -r requirements-dev.txt
