@@ -1,6 +1,9 @@
 # Acknowledgement
 #  This template is based on: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 
+# Octave
+octave-workspace
+
 # Matpower
 matpower7.0/
 matpower-7.1/
