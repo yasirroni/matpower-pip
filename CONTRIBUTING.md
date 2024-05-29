@@ -127,3 +127,9 @@ Use pandoc and wkhtmltopdf to create README.pdf
 ```shell
 pandoc --pdf-engine=wkhtmltopdf README.md -o README.pdf
 ```
+
+## Install oct2py in dev locally
+
+```shell
+cd ../oct2py && pip install -e ".[test]" && cd -
+```
