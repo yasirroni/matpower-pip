@@ -37,7 +37,33 @@ deactivate
 ## Install requirements
 
 ```shell
-pip install -r requirements.txt
+pip install pru --upgrade
+pru -r requirements-latest.txt
+```
+
+## Download and copy matpower
+
+```shell
+python3
+```
+
+```python
+from matpowerpip.downloader import download_matpower, copy_init
+
+download_matpower(matpower_version='7.1')
+copy_init()
+```
+
+## Install in development mode
+
+```shell
+pip install -e ."[dev]"
+```
+
+## pytest
+
+```shell
+pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
 ```
 
 ## Notebook example
