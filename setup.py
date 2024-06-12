@@ -9,9 +9,17 @@ version_line = open(os.path.join(current_path, "matpower/__init__.py"), "rt").re
 m = re.search(r"^__MATPOWERPIP_VERSION__ = ['\"]([^'\"]*)['\"]", version_line, re.M)
 __MATPOWERPIP_VERSION__ = m.group(1)
 
-version_line = open(os.path.join(current_path, "matpower/CHANGES.md"), "rt").read()
-m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
-__MATPOWER_VERSION__ = m.group(0).split(" ")[1]
+try:
+    version_line = open(os.path.join(current_path, "matpower/CHANGES.md"), "rt").read()
+except FileNotFoundError:
+    # matpower6
+    version_line = open(
+        os.path.join(current_path, "matpower/docs/CHANGES"), "rt"
+    ).read()
+version_line = open(os.path.join("matpower/docs/CHANGES"), "rt").read()
+
+m = re.search(r"^Version[:\s]*[.a-zA-Z0-9]*", version_line, re.M)
+__MATPOWER_VERSION__ = m.group(0).split()[1]
 
 version_info = __MATPOWER_VERSION__.split(".")
 if len(version_info) == 2:

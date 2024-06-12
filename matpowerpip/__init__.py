@@ -189,10 +189,20 @@ __MATPOWERPIP_VERSION__ = "2.1.7"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(current_path, "CHANGES.md"), "rt", encoding="utf-8") as file:
-        version_line = file.read()
-    m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
-    __MATPOWER_VERSION__ = m.group(0).split(" ")[1]
+    try:
+        with open(
+            os.path.join(current_path, "CHANGES.md"), "rt", encoding="utf-8"
+        ) as file:
+            version_line = file.read()
+    except FileNotFoundError:
+        # matpower6
+        with open(
+            os.path.join(current_path, "docs/CHANGES"), "rt", encoding="utf-8"
+        ) as file:
+            version_line = file.read()
+
+    m = re.search(r"^Version[:\s]*[.a-zA-Z0-9]*", version_line, re.M)
+    __MATPOWER_VERSION__ = m.group(0).split()[1]
 
     version_info = __MATPOWER_VERSION__.split(".")
     if len(version_info) == 2:

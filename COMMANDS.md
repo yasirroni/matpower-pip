@@ -46,12 +46,34 @@ ren matpower7.0 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 ```
 
+MATPOWER 6
+
+```plaintext
+curl -L 'https://matpower.org/dld/483/?tmstv=1718210051' > matpower.zip
+tar -xf matpower.zip
+del matpower.zip
+ren matpower6.0 matpower
+copy matpowerpip\__init__.py matpower\__init__.py
+```
+
 Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
 
 <!-- 
 TODO: 
     1. Powershell command for curl and tar
 -->
+
+### Mac (`zsh`)
+
+MATPOWER 6
+
+```plaintext
+curl -L 'https://matpower.org/dld/483/?tmstv=1718210051' > matpower.zip
+tar -xf matpower.zip
+rm matpower.zip
+mv matpower6.0 matpower
+cp matpowerpip/__init__.py matpower/__init__.py
+```
 
 ## Delete dist
 
