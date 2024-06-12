@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         matpower-version: ["7.0", "7.1", "8.0"]
         platform: [octave]
 
@@ -72,4 +72,4 @@ jobs:
       - name: Test package
         run: |
           pip install --upgrade --no-cache-dir --force-reinstall jupyter_client ipykernel ipython tornado
-          pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+          pytest auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake

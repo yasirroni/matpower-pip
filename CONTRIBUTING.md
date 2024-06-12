@@ -64,6 +64,7 @@ pip install -e ."[dev]"
 
 ```shell
 pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
+pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 ```
 
 ## Notebook example

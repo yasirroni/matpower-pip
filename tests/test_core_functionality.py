@@ -1,7 +1,8 @@
-import matpower
 import numpy as np
-from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 from oct2py import Oct2Py
+
+import matpower
+from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 
 """Test using pytest
     # normal test
@@ -10,11 +11,11 @@ from oct2py import Oct2Py
 
     # complete test, including example notebooks
     copy matpowerpip\\__init__.py matpower\\__init__.py
-    pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+    pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 
     # only run last failed test
     copy matpowerpip\\__init__.py matpower\\__init__.py
-    pytest -n auto --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+    pytest --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 """
 
 
