@@ -1,6 +1,6 @@
 numpy==1.26.4
 pandas==2.2.2
-oct2py==5.6.1
+oct2py==5.7.0
 matplotlib==3.9.0
 openpyxl==3.1.2
 
