@@ -4,7 +4,27 @@ Place to save some commands related to matpower-pip development, deployment, and
 
 ## Download MATPOWER
 
+### Python
+
+Directly use `downloader.py`:
+
+```powershell
+cd matpowerpip
+py downloader.py
+```
+
+With `matpowerpip`:
+
+```python
+from matpowerpip.downloader import download_matpower, copy_init
+
+download_matpower(matpower_version='8.0')
+copy_init()
+```
+
 ### Windows (`cmd`)
+
+<!-- TODO: MATPOWER 8.0 -->
 
 MATPOWER 7.1
 
@@ -31,25 +51,7 @@ Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` 
 <!-- 
 TODO: 
     1. Powershell command for curl and tar
- -->
-
-### Python
-
-Directly use `downloader.py`:
-
-```powershell
-cd matpowerpip
-py downloader.py
-```
-
-With `matpowerpip`:
-
-```python
-from matpowerpip.downloader import download_matpower, copy_init
-
-download_matpower(matpower_version='8.0b1')
-copy_init()
-```
+-->
 
 ## Delete dist
 

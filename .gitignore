@@ -1,7 +1,13 @@
 # Acknowledgement
 #  This template is based on: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 
+# Octave
+octave-workspace
+
 # Matpower
+matpower7.0/
+matpower-7.1/
+matpower-8.0/
 matpower/
 matpower.zip
 backups/
@@ -9,9 +15,10 @@ backups/
 # Token
 .pypirc
 
-# Playground
+# Private
 playgrounds/
 playground.ipynb
+.private/
 
 # Editor
 .vscode/

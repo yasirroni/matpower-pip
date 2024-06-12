@@ -1,5 +1,6 @@
 import os
 import re
+import warnings
 
 
 class Matpower:
@@ -43,7 +44,12 @@ def start_instance(path_matpower=None, engine="octave", save_path=False):
         path_matpower = PATH_MATPOWER
 
     m.addpath(path_matpower)
-    m.install_matpower(1, 0, 0)  # TODO: explain what is (1, 0, 0)
+    try:
+        m.install_matpower(1, 0, 0)  # TODO: explain what is (1, 0, 0)
+    except Exception as e:
+        # Oct2PyError
+        warnings.warn(e, stacklevel=2)
+
     m.rmpath(path_matpower)
 
     if save_path:

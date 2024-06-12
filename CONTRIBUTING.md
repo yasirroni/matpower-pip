@@ -37,7 +37,34 @@ deactivate
 ## Install requirements
 
 ```shell
-pip install -r requirements.txt
+pip install pru --upgrade
+pru -r requirements-latest.txt
+```
+
+## Download and copy matpower
+
+```shell
+python3
+```
+
+```python
+from matpowerpip.downloader import download_matpower, copy_init
+
+download_matpower(matpower_version='7.1')
+copy_init()
+```
+
+## Install in development mode
+
+```shell
+pip install -e ."[dev]"
+```
+
+## pytest
+
+```shell
+pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
+pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 ```
 
 ## Notebook example
@@ -59,8 +86,9 @@ pip install -r requirements.txt
 
     ```ipython
     # install octave
-    !sudo apt-get -qq update
-    !sudo apt-get -qq install octave octave-signal liboctave-dev
+    !sudo apt-add-repository -y ppa:ubuntuhandbook1/octave > /dev/null 2>&1
+    !sudo apt -qq update > /dev/null 2>&1
+    !sudo apt -y -qq install liboctave-dev octave > /dev/null 2>&1
 
     # install oct2py that compatible with colab
     import os
@@ -99,4 +127,10 @@ Use pandoc and wkhtmltopdf to create README.pdf
 
 ```shell
 pandoc --pdf-engine=wkhtmltopdf README.md -o README.pdf
+```
+
+## Install oct2py in dev locally
+
+```shell
+cd ../oct2py && pip install -e ".[test]" && cd -
 ```
