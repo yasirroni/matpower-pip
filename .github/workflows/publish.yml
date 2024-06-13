@@ -58,7 +58,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        matpower-version: ["7.0", "7.1"]
+        matpower-version: ["7.0", "7.1", "8.0"]
 
     runs-on: ubuntu-latest
 
@@ -66,10 +66,10 @@ jobs:
       - name: Clone this repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.12
           cache: 'pip'
           cache-dependency-path: 'requirements-dev.txt'
 
