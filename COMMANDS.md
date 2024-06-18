@@ -140,3 +140,10 @@ git tag -a v2.1.4 -m "v2.1.4: Fix start instance and install"
 ```powershell
 pandoc README.md -o README.pdf
 ```
+
+## Zip repo
+
+```shell
+alias gitzip="git archive HEAD -o ${PWD##*/}.zip"
+gitzip
+```

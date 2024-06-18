@@ -2,12 +2,13 @@
 
 [![PyPI version](https://badge.fury.io/py/matpower.svg)](https://pypi.org/project/matpower/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/yasirroni/matpower-pip/blob/master/LICENSE)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11626845.svg)](https://doi.org/10.5281/zenodo.11626845)
 
 matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package
 
-This package is inteded to make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`PyPI`](https://pypi.org/project/matpower/). We did not change anything from `MATPOWER` package, instead we use a copy of `MATPOWER` (currently Version `8.0`) and wrap it as `python package` published on PyPI. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using octave client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+This package is intended to make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`PyPI`](https://pypi.org/project/matpower/). We did not change anything from `MATPOWER` package, instead, we used a copy of `MATPOWER` (currently Version `8.0`) and wrapped it as `python package` published on PyPI. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using `octave` client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
 
-This project also listed on [related links](https://matpower.org/related-links/) on matpower official website. Please visit that site to find other useful resources.
+This project is also listed on [related links](https://matpower.org/related-links/) on `MATPOWER` official website. Please visit that site to find other useful resources.
 
 ## Installation
 
@@ -25,11 +26,13 @@ For callable `matpower` via `oct2py` (require octave on environment system `PATH
 
 ## Usage
 
-See `notebooks/` for complete examples. All examples should be compatible with Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yasirroni/matpower-pip/blob/master)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yasirroni/matpower-pip/blob/master)
 
-## Running with engine (require `oct2py` or `matlab.engine`)
+See `notebooks/` for complete examples. All examples should be compatible with Google Colab.
 
-If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used to run `octave` or `MATLAB` with `MATPOWER` path added. Default engine is `octave`. You also can use `mypower` for added functionality as shown in [`mypower tutorial`](https://github.com/yasirroni/mypower/blob/master/tutorial.py).
+## Running with an engine (require `oct2py` or `matlab.engine`)
+
+If `oct2py` or `matlab.engine` is installed, `matpower.start_instance` can be used to run `octave` or `MATLAB` with `MATPOWER` path added. The default engine is `octave`. You also can use `mypower` for added functionality as shown in [`mypower tutorial`](https://github.com/yasirroni/mypower/blob/master/tutorial.py).
 
 ```python
 from matpower import start_instance
@@ -62,7 +65,7 @@ from matpower import path_matpower
 print(path_matpower) # matpower installation location
 ```
 
-Since `mpc = m.runopf()` will make `mpc` contain unsupported `<object opf_model>`, we can avoid it by request maximum number of outputs using `nout='max_nout'` in `octave`.
+Since `mpc = m.runopf()` will make `mpc` contain unsupported `<object opf_model>`, we can avoid it by requesting a maximum number of outputs using `nout='max_nout'` in `octave`.
 
 ```python
 from matpower import start_instance
@@ -74,7 +77,7 @@ mpopt = m.mpoption('verbose', 2)
 [baseMVA, bus, gen, gencost, branch, f, success, et] = m.runopf(mpc, mpopt, nout='max_nout')
 ```
 
-Alternatively, it would be better to not parse back value that will not be use on python using `oct2py` `.eval` method. Use `;` to avoid octave print output on running the command.
+Alternatively, it would be better to not parse back values that will not be used on python using `oct2py` `.eval` method. Combine it with the use of `;` to avoid octave print output on running the command.
 
 ```python
 # import start_instance to start matpower instance
@@ -124,7 +127,7 @@ mpc = m.pull('mpc')
 m.eval("r1 = runopf(mpc, mpopt);")
 ```
 
-Also support using `matlab.engine`.
+`matpower-pip` also support using `matlab.engine`.
 
 ```python
 from matpower import start_instance
@@ -162,11 +165,11 @@ mpc = m.runpf('case5', nargout=0)
 
 ## Versioning
 
-This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER 7.1` become `7.1.0.x.x.x` where `.x.x.x` come from `matpower-pip` versioning. The `matpower-pip` versioning is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
+This package maintains `MATPOWER` version with an added version mark, i.e. `MATPOWER 7.1` becomes `7.1.0.x.x.x` where the `.x.x.x` comes from `matpower-pip` versioning. The `matpower-pip` versioning is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
 
 ## TODO
 
-1. `conda` and `docker` installation that include octave-cli installation.
+1. `conda` and `docker` installation that includes octave-cli installation.
 
 ## Authors
 
@@ -174,25 +177,39 @@ This package maintain `MATPOWER` version with added version mark, i.e. `MATPOWER
 
 ## Cite
 
-We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publication](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
+We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publications](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
 
 > M. Yasirroni, Sarjiya, and L. M. Putranto, "matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package," [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
+> M. Yasirroni, Sarjiya, and L. M. Putranto, “matpower-pip”. Zenodo, Jun. 13, 2024. doi: 10.5281/zenodo.11626845.
 
 ```bibtex
 @misc{matpower-pip,
-  author = {Yasirroni, M. and Sarjiya and Putranto, L. M.},
-  title = {matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package},
-  year = {2023},
+  author       = {Yasirroni, M. and Sarjiya and Putranto, L. M.},
+  title        = {matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package},
+  year         = {2023},
   howpublished = {\url{https://github.com/yasirroni/matpower-pip}},
+}
+
+@software{yasirroni_2024_11626845,
+  author       = {Yasirroni, Muhammad and
+                  Sarjiya, Sarjiya and
+                  Putranto, Lesnanto Multa},
+  title        = {matpower-pip},
+  month        = jun,
+  year         = 2024,
+  publisher    = {Zenodo},
+  version      = {8.0.0.2.1.8},
+  doi          = {10.5281/zenodo.11626845},
+  url          = {https://doi.org/10.5281/zenodo.11626845}
 }
 ```
 
-If a journal publication from the author to appear soon should be cited instead.
+If a journal publication from the author appears soon should be cited instead.
 
 ## Contributing
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Acknowledgement
+## Acknowledgment
 
-This repository was supported by the [Faculty of Engineering, Universitas Gadjah Mada](https://ft.ugm.ac.id/en/) under the supervision of [Mr. Sarjiya](https://www.researchgate.net/profile/Sarjiya_Sarjiya). If you use this package, we are very glad if you cite any relevant publication under Mr. Sarjiya's name that can be found on the [semantic scholar](https://www.semanticscholar.org/author/Sarjiya/2267414) or [IEEE](https://ieeexplore.ieee.org/author/37548066400) for the meantime, since publication related to this repository is ongoing. This work is also partly motivated after I found out that `oct2py` supports running `octave` client from `python`, but the only implementation for running `MATPOWER` that I know, that is [oct2pypower](https://github.com/rwl/oct2pypower), requires `docker` and is not newbie-friendly. Nevertheless, I would like to say thank you to all people who contributed to `oct2py`, `oct2pypower`, and more importantly `MATPOWER`.
+This repository was supported by the [Faculty of Engineering, Universitas Gadjah Mada](https://ft.ugm.ac.id/en/) under the supervision of [Mr. Sarjiya](https://www.researchgate.net/profile/Sarjiya_Sarjiya). If you use this package, we would be very glad if you cite any relevant publication under Mr. Sarjiya's name that can be found in the [semantic scholar](https://www.semanticscholar.org/author/Sarjiya/2267414) or [IEEE](https://ieeexplore.ieee.org/author/37548066400) in the meantime, since publication related to this repository is ongoing. This work is also partly motivated after I found out that `oct2py` supports running `octave` client from `python`, but the only implementation for running `MATPOWER` that I know is [oct2pypower](https://github.com/rwl/oct2pypower) which requires `docker` and is not newbie-friendly. Nevertheless, I would like to say thank you to all the people who have contributed to `oct2py`, `oct2pypower`, and more importantly `MATPOWER`.

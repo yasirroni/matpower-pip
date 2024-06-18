@@ -5,6 +5,8 @@
 octave-workspace
 
 # Matpower
+matpower-pip.zip
+matpower6.0/
 matpower7.0/
 matpower-7.1/
 matpower-8.0/
@@ -90,6 +92,9 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 
+# Ruff stuff
+.ruff_cache
+
 # Scrapy stuff:
 .scrapy
 
@@ -161,3 +166,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Mac
+.DS_Store
