@@ -67,6 +67,13 @@ pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
 pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 ```
 
+## Pre-Commit
+
+```shell
+pre-commit install
+pre-commit run --all-files
+```
+
 ## Notebook example
 
 1. Use `nb-clean` to clean the notebook.
