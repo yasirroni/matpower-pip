@@ -1,6 +1,9 @@
 # Acknowledgement
 #  This template is based on: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 
+# Readme
+README.pdf
+
 # Octave
 octave-workspace
 

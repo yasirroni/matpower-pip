@@ -180,7 +180,8 @@ This package maintains `MATPOWER` version with an added version mark, i.e. `MATP
 We do request that publications derived from the use of `matpower-pip` explicitly acknowledge that fact by including all related [MATPOWER publications](https://github.com/MATPOWER/matpower#citing-matpower) and the following citation:
 
 > M. Yasirroni, Sarjiya, and L. M. Putranto, "matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package," [Online]. Available: <https://github.com/yasirroni/matpower-pip>.
-> M. Yasirroni, Sarjiya, and L. M. Putranto, “matpower-pip”. Zenodo, Jun. 13, 2024. doi: 10.5281/zenodo.11626845.
+>
+> M. Yasirroni, Sarjiya, and L. M. Putranto, "matpower-pip". Zenodo, Jun. 13, 2024. doi: 10.5281/zenodo.11626845.
 
 ```bibtex
 @misc{matpower-pip,
@@ -200,7 +201,7 @@ We do request that publications derived from the use of `matpower-pip` explicitl
   publisher    = {Zenodo},
   version      = {8.0.0.2.1.8},
   doi          = {10.5281/zenodo.11626845},
-  url          = {https://doi.org/10.5281/zenodo.11626845}
+  url          = {\url{https://doi.org/10.5281/zenodo.11626845}}
 }
 ```
 
