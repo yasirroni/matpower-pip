@@ -13,7 +13,12 @@ class Matpower:
     # TODO: support install, uninstall, etc
 
 
-def start_instance(path_matpower=None, engine="octave", save_path=False):
+def start_instance(
+    path_matpower=None,
+    engine="octave",
+    save_path=False,
+    suppress_warning=True,
+):
     """
     Start octave or matlab instance by temporarily installing MATPOWER
 
@@ -26,6 +31,8 @@ def start_instance(path_matpower=None, engine="octave", save_path=False):
         'octave'
     save_path : bool, optional
         Save the new path as default function path, by default False
+    suppress_warning : bool, optional
+        Suppress warning in octave due to oct2py conversion, by default True
 
     Raises
     -------
@@ -39,6 +46,10 @@ def start_instance(path_matpower=None, engine="octave", save_path=False):
     """
 
     m = start_session(engine=engine)
+
+    if engine == "octave" and suppress_warning:
+        m.eval("warning('off', 'Octave:classdef-to-struct');")
+        m.eval("warning('off', 'oct2py:pyeval:save_safe_struct:UnacceptableType');")
 
     if path_matpower is None:
         path_matpower = PATH_MATPOWER

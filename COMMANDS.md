@@ -53,6 +53,15 @@ TODO:
     1. Powershell command for curl and tar
 -->
 
+<!-- 
+### Mac (zsh)
+
+```shell
+cp matpowerpip/__init__.py matpower/__init__.py
+```
+
+-->
+
 ## Delete dist
 
 Delete old dist if exist to avoid the unexpected.
