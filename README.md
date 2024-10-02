@@ -77,7 +77,24 @@ mpopt = m.mpoption('verbose', 2)
 [baseMVA, bus, gen, gencost, branch, f, success, et] = m.runopf(mpc, mpopt, nout='max_nout')
 ```
 
-Alternatively, it would be better to not parse back values that will not be used on python using `oct2py` `.eval` method. Combine it with the use of `;` to avoid octave print output on running the command.
+Or we can remove unsupported objects.
+
+```python
+from matpower import start_instance
+
+m = start_instance()
+
+mpc = m.loadcase('case9')
+mpopt = m.mpoption('verbose', 2)
+m.push("_mpopt", mpopt)
+m.push("_mpc", mpc, verbose=False)
+m.eval("_r1 = runopf(_mpc, _mpopt);", verbose=False)
+m.eval("_r1.raw = rmfield(_r1.raw, 'task');")
+m.eval("_r1 = rmfield(_r1, 'om');")
+mpc = m.pull("_r1")
+```
+
+Alternatively, only select values that will be used on python using `oct2py` `.eval` method. Combine it with the use of `;` to avoid octave print output on running the command.
 
 ```python
 # import start_instance to start matpower instance
