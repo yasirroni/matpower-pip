@@ -183,7 +183,7 @@ def _install_matpower(
     return m
 
 
-__MATPOWERPIP_VERSION__ = "2.2.1"
+__MATPOWERPIP_VERSION__ = "2.2.2"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
