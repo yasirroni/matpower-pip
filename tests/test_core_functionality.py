@@ -5,6 +5,7 @@ import matpower
 from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 
 """Test using pytest
+    # Windows
     # normal test
     copy matpowerpip\\__init__.py matpower\\__init__.py
     pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
@@ -16,6 +17,22 @@ from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
     # only run last failed test
     copy matpowerpip\\__init__.py matpower\\__init__.py
     pytest --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+
+    # Unix
+    # normal test
+    cp matpowerpip/__init__.py matpower/__init__.py
+    pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
+
+    # complete test, including example notebooks
+    cp matpowerpip/__init__.py matpower/__init__.py
+    pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+
+    # only run last failed test
+    cp matpowerpip/__init__.py matpower/__init__.py
+    pytest --lf -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+
+    # for specific test
+    pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower tests/test_core_functionality.py::test_matpower_install
 """
 
 
@@ -62,6 +79,19 @@ def test_instance_octave():
 
 
 def test_matpower_install():
+    # even when matpower already installed, it must be able to start
+    m = Oct2Py()
+    m.addpath(matpower.path_matpower)
+    m.install_matpower(1, 1, 0, 1)  # mock install matpower outside start_instance()
+    m.savepath()
+    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    m.exit()
+    assert MATPOWER_IN_PATH
+    m = matpower.start_instance(engine="octave")
+    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    m.exit()
+    assert MATPOWER_IN_PATH
+
     # created instance must contains MATPOWER
     m = matpower.start_instance(engine="octave")
     MATPOWER_IN_PATH = check_path_matpower_in_path(m)
@@ -88,6 +118,7 @@ def test_matpower_install():
     m.exit()
     m = Oct2Py()
     MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    m.exit()
     assert MATPOWER_IN_PATH is False
 
 

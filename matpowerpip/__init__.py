@@ -148,7 +148,7 @@ def _install_matpower(
     verbose : bool, optional
         Verbosity of install_matpower, by default True
     process : str, optional
-        Install or uninstall, by default 'install'
+        'install' or 'uninstall', by default 'install'
 
     Returns
     -------
@@ -169,9 +169,14 @@ def _install_matpower(
         verbose = 0
 
     m.addpath(path_matpower)
+    # NOTE:
+    #   install_matpower arguments:
+    #       modify, save_it, verbose, rm_oldpaths
     if process == "install":
-        m.install_matpower(1, 1, verbose, 0)
+        # modify my path, save, remove existing path if exist
+        m.install_matpower(1, 1, verbose, 1)
     else:
+        # uninstall MATPOWER from path, must call savepath() to make permanent
         m.install_matpower(0, 0, verbose, 1)
 
     m.rmpath(path_matpower)
@@ -196,7 +201,7 @@ def purge_matpower(path_matpower=None, session=None, engine="octave"):
     return m
 
 
-__MATPOWERPIP_VERSION__ = "2.1.8"
+__MATPOWERPIP_VERSION__ = "2.2.0"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))

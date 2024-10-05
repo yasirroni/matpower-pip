@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-        matpower-version: ["7.0", "7.1", "8.0"]
+        matpower-version: ["8.0"]
         platform: [octave]
 
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        matpower-version: ["7.0", "7.1", "8.0"]
+        matpower-version: ["8.0"]
 
     runs-on: ubuntu-latest
 

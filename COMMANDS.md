@@ -26,26 +26,6 @@ copy_init()
 
 <!-- TODO: MATPOWER 8.0 -->
 
-MATPOWER 7.1
-
-```plaintext
-curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.1.zip > matpower.zip
-tar -xf matpower.zip
-del matpower.zip
-ren matpower-7.1 matpower
-copy matpowerpip\__init__.py matpower\__init__.py
-```
-
-MATPOWER 7.0
-
-```plaintext
-curl -L https://github.com/MATPOWER/matpower/archive/refs/tags/7.0.zip > matpower.zip
-tar -xf matpower.zip
-del matpower.zip
-ren matpower7.0 matpower
-copy matpowerpip\__init__.py matpower\__init__.py
-```
-
 Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
 
 <!-- 
