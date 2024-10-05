@@ -1,6 +1,5 @@
 import os
 import re
-import warnings
 
 
 class Matpower:
@@ -55,11 +54,9 @@ def start_instance(
         path_matpower = PATH_MATPOWER
 
     m.addpath(path_matpower)
-    try:
-        m.install_matpower(1, 0, 0)  # TODO: explain what is (1, 0, 0)
-    except Exception as e:
-        # Oct2PyError
-        warnings.warn(e, stacklevel=2)
+
+    # modify my path, save, silently, remove existing path if exist before install
+    m.install_matpower(1, 1, 0, 1)
 
     m.rmpath(path_matpower)
 
@@ -201,7 +198,7 @@ def purge_matpower(path_matpower=None, session=None, engine="octave"):
     return m
 
 
-__MATPOWERPIP_VERSION__ = "2.2.0"
+__MATPOWERPIP_VERSION__ = "2.2.1"
 
 try:
     current_path = os.path.abspath(os.path.dirname(__file__))
