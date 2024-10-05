@@ -47,6 +47,8 @@ def start_instance(
     m = start_session(engine=engine)
 
     if engine == "octave" and suppress_warning:
+        # NOTE: to suppress all warnings,
+        #   `m.eval("warning('off', 'all')")`
         m.eval("warning('off', 'Octave:classdef-to-struct');")
         m.eval("warning('off', 'oct2py:pyeval:save_safe_struct:UnacceptableType');")
 
@@ -55,9 +57,8 @@ def start_instance(
 
     m.addpath(path_matpower)
 
-    # modify my path, save, silently, remove existing path if exist before install
-    m.install_matpower(1, 1, 0, 1)
-
+    # modify my path, not save path, silently, remove existing path first
+    m.install_matpower(1, 0, 0, 1)  # NOTE: this might cause warning rmpath()
     m.rmpath(path_matpower)
 
     if save_path:
@@ -179,22 +180,6 @@ def _install_matpower(
     m.rmpath(path_matpower)
     m.savepath()
 
-    return m
-
-
-def purge_matpower(path_matpower=None, session=None, engine="octave"):
-    if path_matpower is None:
-        path_matpower = PATH_MATPOWER
-
-    if session is None:
-        m = start_session(engine=engine)
-    else:
-        m = session
-
-    for i in m.path().split(m.pathsep()):
-        if path_matpower in i:
-            m.rmpath(i)
-    m.savepath()
     return m
 
 

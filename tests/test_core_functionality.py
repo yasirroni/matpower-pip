@@ -76,9 +76,12 @@ def test_path():
 def test_instance_octave():
     m = matpower.start_instance(engine="octave")
     run_matpower(m)
+    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    assert MATPOWER_IN_PATH
+    m.exit()
 
 
-def test_matpower_install():
+def test_matpower_start_instance_matpower_already_installed():
     # even when matpower already installed, it must be able to start
     m = Oct2Py()
     m.addpath(matpower.path_matpower)
@@ -92,17 +95,10 @@ def test_matpower_install():
     m.exit()
     assert MATPOWER_IN_PATH
 
-    # created instance must contains MATPOWER
-    m = matpower.start_instance(engine="octave")
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    assert MATPOWER_IN_PATH
 
-    # purge_matpower removes MATPOWER from path
-    m = matpower.purge_matpower(session=m)
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    assert MATPOWER_IN_PATH is False
-
+def test_matpower_install():
     # install matpower adds MATPOWER to path, permanently
+    m = Oct2Py()
     m = matpower.install_matpower(
         path_matpower=matpower.path_matpower, session=m, verbose=False
     )
@@ -118,13 +114,14 @@ def test_matpower_install():
     m.exit()
     m = Oct2Py()
     MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    m.exit()
     assert MATPOWER_IN_PATH is False
+    m.exit()
 
 
 def test_matpower_as_class_octave():
     m = Matpower(engine="octave")
     run_matpower(m)
+    m.exit()
 
 
 def test_context_manager():
