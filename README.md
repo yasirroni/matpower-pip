@@ -88,9 +88,16 @@ mpc = m.loadcase('case9')
 mpopt = m.mpoption('verbose', 2)
 m.push("_mpopt", mpopt)
 m.push("_mpc", mpc, verbose=False)
+
 m.eval("_r1 = runopf(_mpc, _mpopt);", verbose=False)
-m.eval("_r1.raw = rmfield(_r1.raw, 'task');")
-m.eval("_r1 = rmfield(_r1, 'om');")
+
+# `_r1` containts unsupported `<object opf_model>`, needs to be removed first
+m.eval(
+    """
+    _r1.raw = rmfield(_r1.raw, 'task');
+    _r1 = rmfield(_r1, 'om');
+    """
+)
 mpc = m.pull("_r1")
 ```
 
@@ -103,19 +110,20 @@ from matpower import start_instance
 # start instance
 m = start_instance()
 
-# use octave native to run some commands
-m.eval("mpopt = mpoption('verbose', 2);")
-m.eval("mpc = loadcase('case9');")
-m.eval("r1 = runopf(mpc, mpopt);") # we avoid parse `r1` that containts unsupported `<object opf_model>`
+m.eval(
+    """
+    mpopt = mpoption('verbose', 2);
+    mpc = loadcase('case9');
+    _r1 = runopf(mpc, mpopt);
+    """
+)
 
 # fech data to python (.eval is used because .pull is not working in acessing field)
-r1_mpc = {}
-r1_mpc['baseMVA'] = m.eval('r1.baseMVA;')
-r1_mpc['version'] = m.eval('r1.version;')
-r1_mpc['bus'] = m.eval('r1.bus;')
-r1_mpc['gen'] = m.eval('r1.gen;')
-r1_mpc['branch'] = m.eval('r1.branch;')
-r1_mpc['gencost'] = m.eval('r1.gencost;')
+r1_mpc = m.eval(
+    "struct("
+    " 'baseMVA', _r1.baseMVA, 'version', _r1.version, 'bus', _r1.bus, 'gen', _r1.gen,"
+    " 'branch', _r1.branch, 'gencost', _r1.gencost);"
+)
 
 # modify variable if necessary
 [GEN_BUS, PG, QG, QMAX, QMIN, VG, MBASE, GEN_STATUS, PMAX, PMIN, MU_PMAX, 
@@ -141,7 +149,7 @@ m.push('mpc', r1_mpc) # push r1_mpc in python to mpc in octave
 mpc = m.pull('mpc')
 
 # test if our pushed variable can be used
-m.eval("r1 = runopf(mpc, mpopt);")
+m.eval("_r1 = runopf(mpc, mpopt);")
 ```
 
 `matpower-pip` also support using `matlab.engine`.
@@ -162,22 +170,23 @@ mpc = m.runpf('case5', nargout=0)
     Impacted case:
 
     ```python
-    r1 = m.runopf(mpc)
+    _r1 = m.runopf(mpc)
     ```
 
     Solution:
 
     ```python
     m.push('mpc', mpc)
-    m.eval("r1 = runopf(mpc, mpopt);")
+    r1_mpc = m.eval(
+        """
+        mpopt = mpoption('verbose', 2);
+        _r1 = runopf(mpc, mpopt);
+        """
 
-    r1_mpc = {}
-    r1_mpc['baseMVA'] = m.eval('r1.baseMVA;')
-    r1_mpc['version'] = m.eval('r1.version;')
-    r1_mpc['bus'] = m.eval('r1.bus;')
-    r1_mpc['gen'] = m.eval('r1.gen;')
-    r1_mpc['branch'] = m.eval('r1.branch;')
-    r1_mpc['gencost'] = m.eval('r1.gencost;')
+        "struct("
+        " 'baseMVA', _r1.baseMVA, 'version', _r1.version, 'bus', _r1.bus, 'gen', _r1.gen,"
+        " 'branch', _r1.branch, 'gencost', _r1.gencost);"
+    )
     ```
 
 ## Versioning
