@@ -191,7 +191,7 @@ mpc = m.runpf('case5', nargout=0)
 
 ## Versioning
 
-This package maintains `MATPOWER` version with an added version mark, i.e. `MATPOWER 7.1` becomes `7.1.0.x.x.x` where the `.x.x.x` comes from `matpower-pip` versioning. The `matpower-pip` versioning is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
+This package maintains `MATPOWER` version with an added version mark, i.e. `MATPOWER 8.1` becomes `8.1.0.x.x.x` where the `.x.x.x` comes from `matpower-pip` versioning. The `matpower-pip` versioning is not released on `pypi` since `matpower-pip` is restricted for development only (and development should use git instead).
 
 ## TODO
 

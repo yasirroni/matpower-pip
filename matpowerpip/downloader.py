@@ -5,8 +5,9 @@ import urllib.request
 
 
 def download_matpower(
-    matpower_version="7.1", destination=None, force=False, rename=True
+    matpower_version="8.1", destination=None, force=False, rename=True
 ):
+    # TODO: support download development version (https://github.com/MATPOWER/matpower)
     if destination is None:
         matpowerpip_dir = os.path.dirname(
             os.path.abspath(inspect.getfile(download_matpower))

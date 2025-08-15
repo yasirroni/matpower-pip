@@ -132,7 +132,7 @@ def _install_matpower(
     Install MATPOWER using install_matpower.m
 
     The API of install_matpower.m might change.
-    This version is based on MATPOWER 7.1 install_matpower.m
+    This version is based on MATPOWER 8.1 install_matpower.m
 
     Parameters
     ----------
@@ -176,6 +176,9 @@ def _install_matpower(
     else:
         # uninstall MATPOWER from path, must call savepath() to make permanent
         m.install_matpower(0, 0, verbose, 1)
+
+        # bug on MATPOWER 8.1, examples is not deleted
+        m.rmpath(os.path.join(path_matpower, "examples"))
 
     m.rmpath(path_matpower)
     m.savepath()
