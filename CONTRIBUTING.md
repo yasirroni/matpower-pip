@@ -80,13 +80,13 @@ pre-commit run --all-files
 
     ```shell
     pip install nb-clean
-    nb-clean add-filter
+    nb-clean clean notebooks/ -o
     ```
 
     for single run:
 
     ```shell
-    nb-clean clean PATH
+    nb-clean clean PATH -o
     ```
 
 1. Make sure to make the example compatible with `google-colab==1.0.0`. You can use below commands (optional).
