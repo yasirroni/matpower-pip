@@ -1,7 +1,8 @@
-import matpower
 import numpy as np
-from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 from oct2py import Oct2Py
+
+import matpower
+from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
 
 """Test using pytest
     # Windows
@@ -35,15 +36,6 @@ from oct2py import Oct2Py
 """
 
 
-def check_path_matpower_in_path(m):
-    MATPOWER_IN_PATH = False
-    for i in m.path().split(";"):
-        if matpower.path_matpower in i:
-            MATPOWER_IN_PATH = True
-            break
-    return MATPOWER_IN_PATH
-
-
 def run_matpower(m):
     mpc = m.loadcase("case9")
     case9_gencost_val = np.array(
@@ -75,8 +67,7 @@ def test_path():
 def test_instance_octave():
     m = matpower.start_instance(engine="octave")
     run_matpower(m)
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    assert MATPOWER_IN_PATH
+    assert matpower.path_matpower in m.path()
     m.exit()
 
 
@@ -86,13 +77,12 @@ def test_matpower_start_instance_matpower_already_installed():
     m.addpath(matpower.path_matpower)
     m.install_matpower(1, 1, 0, 1)  # mock install matpower outside start_instance()
     m.savepath()
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    assert matpower.path_matpower in m.path()
     m.exit()
-    assert MATPOWER_IN_PATH
+
     m = matpower.start_instance(engine="octave")
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
+    assert matpower.path_matpower in m.path()
     m.exit()
-    assert MATPOWER_IN_PATH
 
 
 def test_matpower_install():
@@ -103,8 +93,7 @@ def test_matpower_install():
     )
     m.exit()
     m = Oct2Py()
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    assert MATPOWER_IN_PATH
+    assert matpower.path_matpower in m.path()
 
     # uninstall matpower removes MATPOWER from path, permanently
     m = matpower.uninstall_matpower(
@@ -112,8 +101,7 @@ def test_matpower_install():
     )
     m.exit()
     m = Oct2Py()
-    MATPOWER_IN_PATH = check_path_matpower_in_path(m)
-    assert MATPOWER_IN_PATH is False
+    assert matpower.path_matpower not in m.path()
     m.exit()
 
 

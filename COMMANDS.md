@@ -18,13 +18,13 @@ With `matpowerpip`:
 ```python
 from matpowerpip.downloader import download_matpower, copy_init
 
-download_matpower(matpower_version='8.0')
+download_matpower(matpower_version='8.1')
 copy_init()
 ```
 
 ### Windows (`cmd`)
 
-<!-- TODO: MATPOWER 8.0 -->
+<!-- TODO: MATPOWER 8.1 -->
 
 Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
 
@@ -59,14 +59,14 @@ del matpower.egg-info
 ## Backups
 
 ```powershell
-Xcopy /E /I matpower backups\matpower-7.1
+Xcopy /E /I matpower backups\matpower-8.1
 ```
 
 ## Restore matpower from backup
 
 ```powershell
 del matpower -Recurse -Force
-Xcopy /E /I backups\matpower-7.1 matpower
+Xcopy /E /I backups\matpower-8.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 ```
 
@@ -101,7 +101,7 @@ twine check dist/*
 
 ```powershell
 del matpower -Recurse -Force
-Xcopy /E /I backups\matpower-7.1 matpower
+Xcopy /E /I backups\matpower-8.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 del dist -Recurse -Force
 del matpower.egg-info -Recurse -Force
@@ -113,7 +113,7 @@ twine upload dist/*
 
 ```powershell
 del matpower -Recurse -Force
-Xcopy /E /I backups\matpower-7.1 matpower
+Xcopy /E /I backups\matpower-8.1 matpower
 copy matpowerpip\__init__.py matpower\__init__.py
 pip install -e .
 ```
