@@ -2,10 +2,10 @@
 
 ## Environment
 
-To install Python 3.12 environment, use:
+To install Python environment, use:
 
 ```shell
-python3.12 -m venv env
+python -m venv env
 ```
 
 To activate Python environment, use:
