@@ -18,13 +18,13 @@ With `matpowerpip`:
 ```python
 from matpowerpip.downloader import download_matpower, copy_init
 
-download_matpower(matpower_version='8.0')
+download_matpower(matpower_version='8.1')
 copy_init()
 ```
 
 ### Windows (`cmd`)
 
-<!-- TODO: MATPOWER 8.0 -->
+<!-- TODO: MATPOWER 8.1 -->
 
 Note: Sometimes it is not working from inside `vscode` terminal, since `vscode` use `powershell` instead of `cmd`. Try use to use windows `cmd` instead.
 

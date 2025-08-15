@@ -6,7 +6,7 @@
 
 matpower-pip: A Python Package for Easy Access to MATPOWER Power System Simulation Package
 
-This package is intended to make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`PyPI`](https://pypi.org/project/matpower/). We did not change anything from `MATPOWER` package, instead, we used a copy of `MATPOWER` (currently Version `8.0`) and wrapped it as `python package` published on PyPI. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using `octave` client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
+This package is intended to make [MATPOWER](https://github.com/MATPOWER/matpower) installable from [`PyPI`](https://pypi.org/project/matpower/). We did not change anything from `MATPOWER` package, instead, we used a copy of `MATPOWER` (currently Version `8.1`) and wrapped it as `python package` published on PyPI. Use this package with [`mypower`](https://github.com/yasirroni/mypower) (the recommended way) or [`oct2py`](https://github.com/blink1073/oct2py) to run `MATPOWER` using `octave` client. `matlab.engine` is also supported. For the latest docs, read [README on GitHub](https://github.com/yasirroni/matpower-pip#readme).
 
 This project is also listed on [related links](https://matpower.org/related-links/) on `MATPOWER` official website. Please visit that site to find other useful resources.
 
