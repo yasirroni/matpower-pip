@@ -9,7 +9,6 @@ Place to save some commands related to matpower-pip development, deployment, and
 Directly use `downloader.py`:
 
 ```powershell
-cd matpowerpip
 py matpowerpip/downloader.py
 ```
 
