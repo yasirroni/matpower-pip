@@ -9,8 +9,7 @@ Place to save some commands related to matpower-pip development, deployment, and
 Directly use `downloader.py`:
 
 ```powershell
-cd matpowerpip
-py downloader.py
+py matpowerpip/downloader.py
 ```
 
 With `matpowerpip`:
@@ -18,7 +17,7 @@ With `matpowerpip`:
 ```python
 from matpowerpip.downloader import download_matpower, copy_init
 
-download_matpower(matpower_version='8.1')
+download_matpower(matpower_version='8.1', force=True, backup='backups')
 copy_init()
 ```
 

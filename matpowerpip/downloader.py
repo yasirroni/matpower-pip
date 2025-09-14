@@ -5,7 +5,7 @@ import urllib.request
 
 
 def download_matpower(
-    matpower_version="8.1", destination=None, force=False, rename=True
+    matpower_version="8.1", destination=None, force=False, rename=True, backup=None
 ):
     # TODO: support download development version (https://github.com/MATPOWER/matpower)
     if destination is None:
@@ -42,6 +42,12 @@ def download_matpower(
     os.remove(file_name)  # remove zipfile
 
     default_matpower_dir = os.path.join(destination, "matpower-" + matpower_version)
+
+    if backup is not None:
+        backup_dest = os.path.join(backup, f"matpower-{matpower_version}")
+        shutil.copytree(default_matpower_dir, backup_dest)
+        print(f"Backed up to: {backup_dest}")
+
     if rename:
         renamed_name = os.path.join(destination, "matpower")
         if os.path.exists(renamed_name):
@@ -77,5 +83,5 @@ def copy_init(destination=None):
 
 
 if __name__ == "__main__":
-    destination = download_matpower()
+    destination = download_matpower(force=True, backup="backups")
     copy_init()
