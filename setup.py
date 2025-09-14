@@ -35,6 +35,7 @@ extra_files = package_files(
         "matpower/data",
         "matpower/docker",
         "matpower/docs",
+        "matpower/examples",
         "matpower/lib",
         "matpower/mips",
         "matpower/most",
