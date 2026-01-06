@@ -26,8 +26,7 @@ def download_matpower(
             return
 
     matpower_url = (
-        f"https://github.com/MATPOWER/matpower/archive/refs/tags/"
-        f"{matpower_version}.zip"
+        f"https://github.com/MATPOWER/matpower/archive/refs/tags/{matpower_version}.zip"
     )
 
     print("Downloading MATPOWER...")
