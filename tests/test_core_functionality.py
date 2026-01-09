@@ -69,7 +69,7 @@ def test_version():
     assert matpower.__version__.endswith(__MATPOWERPIP_VERSION__)
 
     # test static versioning
-    assert matpower.__version__ == "8.1.0.2.2.4"
+    assert __MATPOWER_VERSION__ == "8.1"
     assert __MIPS_VERSION__ == "1.5.2"
     assert __MOST_VERSION__ == "1.3.1"
     assert __MPOPTMODEL_VERSION__ == "5.0"
