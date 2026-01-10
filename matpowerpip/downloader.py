@@ -7,7 +7,16 @@ import urllib.request
 def download_matpower(
     matpower_version="8.1", destination=None, force=False, rename=True, backup=None
 ):
-    # TODO: support download development version (https://github.com/MATPOWER/matpower)
+    """
+    Download MATPOWER from GitHub.
+
+    Args:
+        matpower_version: Version tag (e.g., "8.1") or "master" for development version
+        destination: Download destination path
+        force: Force overwrite existing files
+        rename: Rename extracted folder to "matpower"
+        backup: Backup directory path
+    """
     if destination is None:
         matpowerpip_dir = os.path.dirname(
             os.path.abspath(inspect.getfile(download_matpower))
@@ -25,9 +34,15 @@ def download_matpower(
             print("Force is False, cancel download. Set force=True to force download.")
             return
 
-    matpower_url = (
-        f"https://github.com/MATPOWER/matpower/archive/refs/tags/{matpower_version}.zip"
-    )
+    # Check if development version is requested
+    if matpower_version.lower() == "master":
+        matpower_url = (
+            "https://github.com/MATPOWER/matpower/archive/refs/heads/master.zip"
+        )
+        folder_name = "matpower-master"
+    else:
+        matpower_url = f"https://github.com/MATPOWER/matpower/archive/refs/tags/{matpower_version}.zip"
+        folder_name = f"matpower-{matpower_version}"
 
     print("Downloading MATPOWER...")
     print(matpower_url)
@@ -40,12 +55,12 @@ def download_matpower(
     shutil.unpack_archive(file_name, destination, "zip")
     os.remove(file_name)  # remove zipfile
 
-    default_matpower_dir = os.path.join(destination, "matpower-" + matpower_version)
+    default_matpower_dir = os.path.join(destination, folder_name)
 
     if backup is not None:
-        backup_dest = os.path.join(backup, f"matpower-{matpower_version}")
+        backup_dest = os.path.join(backup, folder_name)
         shutil.copytree(default_matpower_dir, backup_dest)
-        print(f"Backed up to: {backup_dest}")
+        print(f"Backed up to: {os.path.abspath(backup_dest)}")
 
     if rename:
         renamed_name = os.path.join(destination, "matpower")

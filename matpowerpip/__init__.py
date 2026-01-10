@@ -186,14 +186,31 @@ def _install_matpower(
     return m
 
 
-__MATPOWERPIP_VERSION__ = "2.2.3"
-
-try:
-    current_path = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(current_path, "CHANGES.md"), "rt", encoding="utf-8") as file:
+def _get_version_form_changelog(package_path):
+    changes_file = os.path.join(package_path, "CHANGES.md")
+    with open(changes_file, "rt", encoding="utf-8") as file:
         version_line = file.read()
     m = re.search(r"^Version [.a-zA-Z0-9]*", version_line, re.M)
-    __MATPOWER_VERSION__ = m.group(0).split(" ")[1]
+    return m.group(0).split(" ")[1]
+
+
+__MATPOWERPIP_VERSION__ = "2.2.4"
+
+try:
+    PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
+    path_matpower = PATH_MATPOWER  # used for alias
+    path_matpower_cases = os.path.join(path_matpower, "data")
+    cases = os.listdir(path_matpower_cases)
+
+    __MATPOWER_VERSION__ = _get_version_form_changelog(path_matpower)
+    __MIPS_VERSION__ = _get_version_form_changelog(os.path.join(path_matpower, "mips"))
+    __MOST_VERSION__ = _get_version_form_changelog(os.path.join(path_matpower, "most"))
+    __MPOPTMODEL_VERSION__ = _get_version_form_changelog(
+        os.path.join(path_matpower, "mp-opt-model")
+    )
+    __MPTTEST_VERSION__ = _get_version_form_changelog(
+        os.path.join(path_matpower, "mptest")
+    )
 
     version_info = __MATPOWER_VERSION__.split(".")
     if len(version_info) == 2:
@@ -201,11 +218,6 @@ try:
     version_info.append(__MATPOWERPIP_VERSION__)
 
     __version__ = ".".join(version_info)
-
-    PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
-    path_matpower = PATH_MATPOWER  # used for alias
-    path_matpower_cases = os.path.join(path_matpower, "data")
-    cases = os.listdir(path_matpower_cases)
 
 except FileNotFoundError:
     print(

@@ -2,7 +2,15 @@ import numpy as np
 from oct2py import Oct2Py
 
 import matpower
-from matpower import __MATPOWER_VERSION__, __MATPOWERPIP_VERSION__, Matpower
+from matpower import (
+    __MATPOWER_VERSION__,
+    __MATPOWERPIP_VERSION__,
+    __MIPS_VERSION__,
+    __MOST_VERSION__,
+    __MPOPTMODEL_VERSION__,
+    __MPTTEST_VERSION__,
+    Matpower,
+)
 
 """Test using pytest
     # Windows
@@ -54,10 +62,18 @@ def run_matpower(m):
 
 
 def test_version():
+    # test dynamic versioning
     print(f"matpower.__version__: {matpower.__version__}")
     assert len(matpower.__version__.split(".")) == 6
     assert matpower.__version__.startswith(__MATPOWER_VERSION__)
     assert matpower.__version__.endswith(__MATPOWERPIP_VERSION__)
+
+    # test static versioning
+    assert __MATPOWER_VERSION__ == "8.1"
+    assert __MIPS_VERSION__ == "1.5.2"
+    assert __MOST_VERSION__ == "1.3.1"
+    assert __MPOPTMODEL_VERSION__ == "5.0"
+    assert __MPTTEST_VERSION__ == "8.1"
 
 
 def test_path():
