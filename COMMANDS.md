@@ -21,6 +21,8 @@ download_matpower(matpower_version='8.1', force=True, backup='backups')
 copy_init()
 ```
 
+See [`dev/download_matpower.ipynb`](dev/download_matpower.ipynb) for a notebook example.
+
 ### Windows (`cmd`)
 
 <!-- TODO: MATPOWER 8.1 -->
