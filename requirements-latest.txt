@@ -4,7 +4,7 @@ oct2py==5.8.0
 matplotlib==3.10.8
 openpyxl==3.1.5
 
-matpowercaseframes==2.0.0
+matpowercaseframes==2.0.1
 pypglib==0.0.3
 
 pytest==9.0.2
@@ -18,4 +18,4 @@ setuptools==80.9.0
 
 pre-commit==3.7.1
 nb-clean==4.0.1
-ruff==0.14.10
+ruff==0.14.11
