@@ -5,8 +5,13 @@
 To install Python environment, use:
 
 ```shell
-python -m venv env
+uv venv env --python 3.12
+source env/bin/activate
+uv pip install pip
 ```
+
+> [!Note]  
+> Python 3.12 currently needed for `matlabengine`.
 
 To activate Python environment, use:
 
@@ -37,7 +42,7 @@ deactivate
 ## Install requirements
 
 ```shell
-pip install pru --upgrade
+uv pip install pru --upgrade
 pru -r requirements-latest.txt
 ```
 
@@ -57,7 +62,7 @@ copy_init()
 ## Install in development mode
 
 ```shell
-pip install -e ."[dev]"
+uv pip install -e ."[dev]"
 ```
 
 ## pytest
@@ -65,6 +70,9 @@ pip install -e ."[dev]"
 ```shell
 pytest -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
 pytest -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
+
+pytest --last-failed -n auto -rA -c pyproject.toml --cov-report term-missing --cov=matpower
+pytest --last-failed -rA -c pyproject.toml --cov-report term-missing --cov=matpower --nbmake
 ```
 
 ## Pre-Commit
@@ -140,4 +148,12 @@ pandoc --pdf-engine=wkhtmltopdf README.md -o README.pdf
 
 ```shell
 cd ../oct2py && pip install -e ".[test]" && cd -
+```
+
+## Install matlabengine
+
+Optionally, if you want to test matlab compatibility, you can install `matlabengine`
+
+```shell
+uv pip install matlabengine
 ```

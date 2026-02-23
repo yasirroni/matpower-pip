@@ -12,7 +12,7 @@ repos:
   # autofix using ruff
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.14.10
+    rev: v0.15.2
     hooks:
       # Run the linter.
       - id: ruff
@@ -22,3 +22,12 @@ repos:
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
         # args: [ --verbose ]
+
+  # clean notebooks with nb-clean
+  - repo: https://github.com/srstevenson/nb-clean
+    rev: 4.0.1
+    hooks:
+      - id: nb-clean
+        args:
+          - --preserve-cell-outputs
+          - --
