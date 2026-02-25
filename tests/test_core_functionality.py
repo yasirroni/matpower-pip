@@ -1,5 +1,13 @@
 import numpy as np
+import pytest
 from oct2py import Oct2Py
+
+try:
+    import matlab.engine  # noqa: F401
+
+    MATLAB_AVAILABLE = True
+except ImportError:
+    MATLAB_AVAILABLE = False
 
 import matpower
 from matpower import (
@@ -144,3 +152,12 @@ def test_context_manager():
     # test value outside context
     assert np.allclose(mpc.gencost, case9_gencost_val)
     assert m._engine is None
+
+
+@pytest.mark.skipif(not MATLAB_AVAILABLE, reason="MATLAB not available")
+def test_matpower_matlab_command():
+    m = matpower.start_instance(engine="matlab")
+    mpc = m.loadcase("case9")
+    r1 = matpower.run_matlab_cmd("runopf(mpc)", m=m, mpc=mpc)
+
+    assert r1["gen"].size[1] > mpc["gen"].size[1]  # runopf adds more columns to gen

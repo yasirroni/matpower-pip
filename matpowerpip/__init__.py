@@ -1,6 +1,8 @@
 import os
 import re
 
+DEFAULT_MPC_FIELDS = ["baseMVA", "version", "bus", "gen", "branch", "gencost"]
+
 
 class Matpower:
     # !WARNING: not tested under MATLAB
@@ -184,6 +186,46 @@ def _install_matpower(
     m.savepath()
 
     return m
+
+
+def run_matlab_cmd(cmd, m=None, fields=None, **kwargs):
+    """
+    Generic wrapper to run a MATPOWER command and extract struct fields using MATLAB
+    backend.
+
+    Parameters
+    ----------
+    cmd : str
+        Full MATLAB command string, e.g. "runpf(mpc_, mpopt_)".
+    m : matpower instance, optional
+        If None, a new instance is started and shut down after.
+    fields : list of str, optional
+        Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
+    **kwargs :
+        Variables injected into MATLAB workspace before running cmd.
+        Keys become MATLAB variable names, e.g. mpc_=mpc, mpopt_=mpopt.
+    """
+    if fields is None:
+        fields = DEFAULT_MPC_FIELDS
+
+    if m is None:
+        m = start_instance(engine="matlab")
+        SHUTDOWN = True
+    else:
+        SHUTDOWN = False
+
+    for var_name, value in kwargs.items():
+        m.workspace[var_name] = value
+    m.eval(f"r1_ = {cmd};", nargout=0)
+
+    result = {}
+    for field in fields:
+        result[field] = m.eval(f"r1_.{field};", nargout=1)
+
+    if SHUTDOWN:
+        m.quit()
+
+    return result
 
 
 def _get_version_form_changelog(package_path):
