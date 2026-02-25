@@ -65,7 +65,11 @@ def _test_run_matpower(m):
     np.allclose(mpc["gencost"], case9_gencost_val)
 
     r1 = matpower.run_matpower_cmd("runpf(mpc)", m=m, mpc=mpc)
-    assert np.array(r1["gen"].shape[1]) > np.array(mpc["gen"].shape[1])
+
+    # test if runpf actually ran and changes the generator outputs
+    assert np.all(
+        ~np.isclose(np.array(mpc["gen"])[:, 1], np.array(r1["gen"])[:, 1].sum())
+    )
 
     return r1
 
