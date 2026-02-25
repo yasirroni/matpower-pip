@@ -360,7 +360,7 @@ def _get_version_form_changelog(package_path):
     return m.group(0).split(" ")[1]
 
 
-__MATPOWERPIP_VERSION__ = "2.2.4"
+__MATPOWERPIP_VERSION__ = "2.3.0"
 
 try:
     PATH_MATPOWER = os.path.dirname(os.path.abspath(__file__))
