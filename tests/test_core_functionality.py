@@ -1,5 +1,13 @@
 import numpy as np
+import pytest
 from oct2py import Oct2Py
+
+try:
+    import matlab.engine  # noqa: F401
+
+    MATLAB_AVAILABLE = True
+except ImportError:
+    MATLAB_AVAILABLE = False
 
 import matpower
 from matpower import (
@@ -44,7 +52,7 @@ from matpower import (
 """
 
 
-def run_matpower(m):
+def _test_run_matpower(m):
     mpc = m.loadcase("case9")
     case9_gencost_val = np.array(
         [
@@ -53,12 +61,17 @@ def run_matpower(m):
             [2.000e00, 3.000e03, 0.000e00, 3.000e00, 1.225e-01, 1.000e00, 3.350e02],
         ]
     )
-    assert np.allclose(mpc.gencost, case9_gencost_val)
 
-    # TODO: test runpf able to change mpc
-    mpc = m.runpf(mpc)
+    np.allclose(mpc["gencost"], case9_gencost_val)
 
-    return mpc
+    r1 = matpower.run_matpower_cmd("runpf(mpc)", m=m, mpc=mpc)
+
+    # test if runpf actually ran and changes the generator outputs
+    assert np.all(
+        ~np.isclose(np.array(mpc["gen"])[:, 1], np.array(r1["gen"])[:, 1].sum())
+    )
+
+    return r1
 
 
 def test_version():
@@ -80,9 +93,24 @@ def test_path():
     assert matpower.__path__[0] == matpower.path_matpower
 
 
+def test_instance_none():
+    m = matpower.start_instance()
+    _test_run_matpower(m)
+    assert matpower.path_matpower in m.path()
+    m.exit()
+
+
 def test_instance_octave():
     m = matpower.start_instance(engine="octave")
-    run_matpower(m)
+    _test_run_matpower(m)
+    assert matpower.path_matpower in m.path()
+    m.exit()
+
+
+@pytest.mark.skipif(not MATLAB_AVAILABLE, reason="MATLAB not available")
+def test_instance_matlab():
+    m = matpower.start_instance(engine="matlab")
+    _test_run_matpower(m)
     assert matpower.path_matpower in m.path()
     m.exit()
 
@@ -123,24 +151,36 @@ def test_matpower_install():
 
 def test_matpower_as_class_octave():
     m = Matpower(engine="octave")
-    run_matpower(m)
+    _test_run_matpower(m)
     m.exit()
 
 
 def test_context_manager():
     """Make sure matpwoer works within a context manager"""
-
-    case9_gencost_val = np.array(
-        [
-            [2.000e00, 1.500e03, 0.000e00, 3.000e00, 1.100e-01, 5.000e00, 1.500e02],
-            [2.000e00, 2.000e03, 0.000e00, 3.000e00, 8.500e-02, 1.200e00, 6.000e02],
-            [2.000e00, 3.000e03, 0.000e00, 3.000e00, 1.225e-01, 1.000e00, 3.350e02],
-        ]
-    )
-
     with Matpower(engine="octave") as m:
-        mpc = run_matpower(m)
+        _ = _test_run_matpower(m)
 
     # test value outside context
-    assert np.allclose(mpc.gencost, case9_gencost_val)
     assert m._engine is None
+
+
+@pytest.mark.skipif(not MATLAB_AVAILABLE, reason="MATLAB not available")
+def test_matpower_matlab_command():
+    m = matpower.start_instance(engine="matlab")
+    mpc = m.loadcase("case9")
+    r1 = matpower.run_matlab_cmd("runopf(mpc)", m=m, mpc=mpc)
+
+    assert r1["gen"].size[1] > mpc["gen"].size[1]  # runopf adds more columns to gen
+
+
+def test_matpower_octave_command():
+    m = matpower.start_instance(engine="octave")
+    mpc = m.loadcase("case9")
+    r1 = matpower.run_octave_cmd("runopf(mpc)", m=m, mpc=mpc)
+
+    assert r1["gen"].shape[1] > mpc["gen"].shape[1]  # runopf adds more columns to gen
+
+
+def test_matpower_command():
+    r1 = matpower.run_matpower_cmd("runopf()")
+    assert r1["gen"].shape[1] > 21

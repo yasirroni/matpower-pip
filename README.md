@@ -154,11 +154,51 @@ m.eval("_r1 = runopf(mpc, mpopt);")
 
 `matpower-pip` also support using `matlab.engine`.
 
+Since `matlabengine` does not support sparse matrices, `runpf` results cannot be returned directly to Python. Use `nargout=0` to print the result in MATLAB without returning it:
+
 ```python
 from matpower import start_instance
 
-m = start_instance(engine='matlab') # specify using `matlab.engine` instead of `oct2py`
-mpc = m.runpf('case5', nargout=0)
+m = start_instance(engine='matlab')
+m.runpf(nargout=0)
+```
+
+```python
+from matpower import start_instance
+
+m = start_instance(engine='matlab')
+mpc = m.loadcase('case9')
+m.runpf(mpc, nargout=0)
+```
+
+To get the results back in Python, use the workspace workaround:
+
+```python
+from matpower import start_instance
+
+m = start_instance(engine='matlab')
+mpc = m.loadcase('case9')
+m.workspace["mpc_"] = mpc
+m.eval("r1_ = runpf(mpc_);", nargout=0)
+r1 = {
+    "baseMVA": m.eval("r1_.baseMVA;", nargout=1),
+    "version": m.eval("r1_.version;", nargout=1),
+    "bus": m.eval("r1_.bus;", nargout=1),
+    "gen": m.eval("r1_.gen;", nargout=1),
+    "branch": m.eval("r1_.branch;", nargout=1),
+    "gencost": m.eval("r1_.gencost;", nargout=1),
+}
+```
+
+## Running with wrapped engine (automatically detect `oct2py` or `matlab.engine`)
+
+```python
+from matpower import run_matpower_cmd, start_instance
+
+m = start_instance()
+mpc = m.loadcase("case9")
+r1 = run_matpower_cmd("runpf(mpc)", m=m, mpc=mpc)
+m.exit()
 ```
 
 ## Known engine issue
@@ -187,6 +227,29 @@ mpc = m.runpf('case5', nargout=0)
         " 'baseMVA', _r1.baseMVA, 'version', _r1.version, 'bus', _r1.bus, 'gen', _r1.gen,"
         " 'branch', _r1.branch, 'gencost', _r1.gencost);"
     )
+    ```
+
+1. `matlabengine` did not support sparse matrix, making even `runpf` result can't be passed to python directly. See: <https://github.com/mathworks/matlab-engine-for-python/issues/60>
+
+    Impacted case:
+
+    ```python
+    r1 = m.runpf(mpc, nargout=0)
+    ```
+
+    Solution:
+
+    ```python
+    m.workspace["mpc_"] = mpc
+    m.eval("r1_ = runpf(mpc_);", nargout=0)
+    r1 = {
+        "baseMVA": m.eval("r1_.baseMVA;", nargout=1),
+        "version": m.eval("r1_.version;", nargout=1),
+        "bus": m.eval("r1_.bus;", nargout=1),
+        "gen": m.eval("r1_.gen;", nargout=1),
+        "branch": m.eval("r1_.branch;", nargout=1),
+        "gencost": m.eval("r1_.gencost;", nargout=1),
+    }
     ```
 
 ## Versioning

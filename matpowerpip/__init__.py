@@ -1,10 +1,12 @@
 import os
 import re
 
+DEFAULT_MPC_FIELDS = ["baseMVA", "version", "bus", "gen", "branch", "gencost"]
+
 
 class Matpower:
     # !WARNING: not tested under MATLAB
-    def __new__(cls, path_matpower=None, engine="octave", save_path=False):
+    def __new__(cls, path_matpower=None, engine=None, save_path=False):
         return start_instance(
             path_matpower=path_matpower, engine=engine, save_path=save_path
         )
@@ -14,7 +16,7 @@ class Matpower:
 
 def start_instance(
     path_matpower=None,
-    engine="octave",
+    engine=None,
     save_path=False,
     suppress_warning=True,
 ):
@@ -67,8 +69,25 @@ def start_instance(
     return m
 
 
-def start_session(engine="octave"):
-    if engine == "octave":
+def start_session(engine=None):
+    if engine is None:
+        try:
+            from oct2py import Oct2Py
+
+            m = Oct2Py()
+        except ImportError:
+            try:
+                import matlab.engine
+
+                m = matlab.engine.start_matlab()
+            except ImportError:
+                msg = (
+                    "No package named Oct2Py and matlab. Please install using"
+                    " `pip install matpower[octave]`, `pip install oct2py`, or"
+                    " `pip install matlabengine`."
+                )
+                raise ImportError(msg)
+    elif engine == "octave":
         # TODO:
         # Tell user to use `pip install matpower[octave]` or `pip install oct2py`
         try:
@@ -77,8 +96,8 @@ def start_session(engine="octave"):
             m = Oct2Py()
         except ImportError:
             msg = (
-                "No package named Oct2Py. Please install using `pip install"
-                " matpower[octave]` or `pip install oct2py`."
+                "No package named Oct2Py. Please install using"
+                " `pip install matpower[octave]` or `pip install oct2py`."
             )
             raise ImportError(msg)
     elif engine == "matlab":
@@ -88,9 +107,10 @@ def start_session(engine="octave"):
             m = matlab.engine.start_matlab()
         except ImportError:
             msg = (
-                "No package named matlab. You can install Oct2Py as free alternative"
-                " of matlab using `pip install matpower[octave]` or `pip install"
-                " oct2py`."
+                "No package named matlab. Please install using"
+                " `pip install matlabengine`. Alternatively, you can install Oct2Py as"
+                " a free alternative of matlab using `pip install matpower[octave]` or"
+                " `pip install oct2py`."
             )
             raise ImportError(msg)
     else:
@@ -103,7 +123,7 @@ def start_session(engine="octave"):
     return m
 
 
-def install_matpower(path_matpower=None, session=None, engine="octave", verbose=True):
+def install_matpower(path_matpower=None, session=None, engine=None, verbose=True):
     m = _install_matpower(
         path_matpower=path_matpower,
         session=session,
@@ -114,7 +134,7 @@ def install_matpower(path_matpower=None, session=None, engine="octave", verbose=
     return m
 
 
-def uninstall_matpower(path_matpower=None, session=None, engine="octave", verbose=True):
+def uninstall_matpower(path_matpower=None, session=None, engine=None, verbose=True):
     m = _install_matpower(
         path_matpower=path_matpower,
         session=session,
@@ -126,7 +146,7 @@ def uninstall_matpower(path_matpower=None, session=None, engine="octave", verbos
 
 
 def _install_matpower(
-    path_matpower=None, session=None, engine="octave", verbose=True, process="install"
+    path_matpower=None, session=None, engine=None, verbose=True, process="install"
 ):
     """
     Install MATPOWER using install_matpower.m
@@ -184,6 +204,152 @@ def _install_matpower(
     m.savepath()
 
     return m
+
+
+def run_matlab_cmd(cmd, m=None, fields=None, **kwargs):
+    """
+    Generic wrapper to run a MATPOWER command and extract struct fields using MATLAB
+    backend.
+
+    Parameters
+    ----------
+    cmd : str
+        Full MATLAB command string, e.g. "runpf(mpc, mpopt)".
+    m : matpower instance, optional
+        If None, a new instance is started and shut down after.
+    fields : list of str, optional
+        Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
+    **kwargs :
+        Variables injected into MATLAB workspace before running cmd.
+        Keys become MATLAB variable names, e.g. mpc=mpc, mpopt=mpopt.
+    """
+    if fields is None:
+        fields = DEFAULT_MPC_FIELDS
+
+    if m is None:
+        m = start_instance(engine="matlab")
+        SHUTDOWN = True
+    else:
+        SHUTDOWN = False
+
+    for var_name, value in kwargs.items():
+        m.workspace[var_name] = value
+    m.eval(f"r1_ = {cmd};", nargout=0)
+
+    result = {}
+    for field in fields:
+        result[field] = m.eval(f"r1_.{field};", nargout=1)
+
+    if SHUTDOWN:
+        m.quit()
+
+    return result
+
+
+def run_octave_cmd(cmd, m=None, fields=None, verbose=False, **kwargs):
+    """
+    Generic wrapper to run a MATPOWER command and extract struct fields using Octave
+    backend.
+
+    Parameters
+    ----------
+    cmd : str
+        Full Octave command string, e.g. "runpf(mpc, mpopt)".
+    m : oct2py instance, optional
+        If None, a new instance is started and shut down after.
+    fields : list of str, optional
+        Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
+    verbose : bool, optional
+        Verbosity of oct2py eval, by default False.
+    **kwargs :
+        Variables pushed into Octave session before running cmd.
+        Keys become Octave variable names, e.g. mpc=mpc, mpopt=mpopt.
+    """
+    if fields is None:
+        fields = DEFAULT_MPC_FIELDS
+
+    if m is None:
+        m = start_instance(engine=None)
+        SHUTDOWN = True
+    else:
+        SHUTDOWN = False
+
+    for var_name, value in kwargs.items():
+        m.push(var_name, value)
+    m.eval(f"r1_ = {cmd};", verbose=verbose)
+
+    result = {}
+    for field in fields:
+        result[field] = m.eval(f"r1_.{field};", verbose=verbose)
+
+    if SHUTDOWN:
+        m.exit()
+
+    return result
+
+
+def run_matpower_cmd(cmd, m=None, fields=None, engine=None, **kwargs):
+    """
+    Generic wrapper to run a MATPOWER command, auto-detecting the engine backend.
+
+    Parameters
+    ----------
+    cmd : str
+        Full command string, e.g. "runpf(mpc)", "runopf(mpc, mpopt)".
+    m : Oct2Py | matlab.engine instance, optional
+        If None, a new instance is started (octave first, then matlab).
+    fields : list of str, optional
+        Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
+    engine : str, optional
+        Force engine type: 'octave' or 'matlab'. If None, auto-detected from m.
+    **kwargs :
+        Variables injected into session before running cmd.
+        Keys become variable names, e.g. mpc=mpc, mpopt=mpopt.
+    """
+    if m is None:
+        SHUTDOWN = True
+        m = start_instance(engine=engine)
+    else:
+        SHUTDOWN = False
+
+    detected_engine = engine or _detect_engine(m)
+    try:
+        if detected_engine == "octave":
+            result = run_octave_cmd(cmd, m=m, fields=fields, **kwargs)
+        elif detected_engine == "matlab":
+            result = run_matlab_cmd(cmd, m=m, fields=fields, **kwargs)
+        else:
+            raise ValueError(
+                f"Unknown engine: {detected_engine}. Choose 'octave' or 'matlab'."
+            )
+    finally:
+        if SHUTDOWN:
+            m.exit()
+    return result
+
+
+def _detect_engine(m):
+    """Detect engine type from instance."""
+    try:
+        from oct2py import Oct2Py
+
+        if isinstance(m, Oct2Py):
+            return "octave"
+    except ImportError:
+        pass
+
+    try:
+        import matlab.engine
+
+        if isinstance(m, matlab.engine.MatlabEngine):
+            return "matlab"
+    except ImportError:
+        pass
+
+    raise ValueError(
+        f"Unknown engine type: {type(m)}. Expected Oct2Py or"
+        " matlab.engine.MatlabEngine."
+    )
 
 
 def _get_version_form_changelog(package_path):
