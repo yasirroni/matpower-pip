@@ -52,7 +52,7 @@ from matpower import (
 """
 
 
-def run_matpower(m):
+def _test_run_matpower(m):
     mpc = m.loadcase("case9")
     case9_gencost_val = np.array(
         [
@@ -61,10 +61,17 @@ def run_matpower(m):
             [2.000e00, 3.000e03, 0.000e00, 3.000e00, 1.225e-01, 1.000e00, 3.350e02],
         ]
     )
-    assert np.allclose(mpc.gencost, case9_gencost_val)
+
+    engine_name = matpower._detect_engine(m)
+    if engine_name == "octave":
+        assert np.allclose(mpc.gencost, case9_gencost_val)
+    elif engine_name == "matlab":
+        assert np.allclose(mpc["gencost"], case9_gencost_val)
+    else:
+        raise ValueError(f"Unknown engine: {engine_name}")
 
     # TODO: test runpf able to change mpc
-    mpc = m.runpf(mpc)
+    mpc = matpower.run_matpower_cmd("runpf(mpc)", m=m, mpc=mpc)
 
     return mpc
 
@@ -88,9 +95,24 @@ def test_path():
     assert matpower.__path__[0] == matpower.path_matpower
 
 
+def test_instance_none():
+    m = matpower.start_instance()
+    _test_run_matpower(m)
+    assert matpower.path_matpower in m.path()
+    m.exit()
+
+
 def test_instance_octave():
     m = matpower.start_instance(engine="octave")
-    run_matpower(m)
+    _test_run_matpower(m)
+    assert matpower.path_matpower in m.path()
+    m.exit()
+
+
+@pytest.mark.skipif(not MATLAB_AVAILABLE, reason="MATLAB not available")
+def test_instance_matlab():
+    m = matpower.start_instance(engine="matlab")
+    _test_run_matpower(m)
     assert matpower.path_matpower in m.path()
     m.exit()
 
@@ -131,7 +153,7 @@ def test_matpower_install():
 
 def test_matpower_as_class_octave():
     m = Matpower(engine="octave")
-    run_matpower(m)
+    _test_run_matpower(m)
     m.exit()
 
 
@@ -147,7 +169,7 @@ def test_context_manager():
     )
 
     with Matpower(engine="octave") as m:
-        mpc = run_matpower(m)
+        mpc = _test_run_matpower(m)
 
     # test value outside context
     assert np.allclose(mpc.gencost, case9_gencost_val)
@@ -169,3 +191,8 @@ def test_matpower_octave_command():
     r1 = matpower.run_octave_cmd("runopf(mpc)", m=m, mpc=mpc)
 
     assert r1["gen"].shape[1] > mpc["gen"].shape[1]  # runopf adds more columns to gen
+
+
+def test_matpower_command():
+    r1 = matpower.run_matpower_cmd("runopf()")
+    assert r1["gen"].shape[1] > 21
