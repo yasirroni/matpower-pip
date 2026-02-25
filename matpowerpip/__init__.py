@@ -196,14 +196,14 @@ def run_matlab_cmd(cmd, m=None, fields=None, **kwargs):
     Parameters
     ----------
     cmd : str
-        Full MATLAB command string, e.g. "runpf(mpc_, mpopt_)".
+        Full MATLAB command string, e.g. "runpf(mpc, mpopt)".
     m : matpower instance, optional
         If None, a new instance is started and shut down after.
     fields : list of str, optional
         Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
     **kwargs :
         Variables injected into MATLAB workspace before running cmd.
-        Keys become MATLAB variable names, e.g. mpc_=mpc, mpopt_=mpopt.
+        Keys become MATLAB variable names, e.g. mpc=mpc, mpopt=mpopt.
     """
     if fields is None:
         fields = DEFAULT_MPC_FIELDS
@@ -224,6 +224,48 @@ def run_matlab_cmd(cmd, m=None, fields=None, **kwargs):
 
     if SHUTDOWN:
         m.quit()
+
+    return result
+
+
+def run_octave_cmd(cmd, m=None, fields=None, verbose=False, **kwargs):
+    """
+    Generic wrapper to run a MATPOWER command and extract struct fields using Octave
+    backend.
+
+    Parameters
+    ----------
+    cmd : str
+        Full Octave command string, e.g. "runpf(mpc, mpopt)".
+    m : oct2py instance, optional
+        If None, a new instance is started and shut down after.
+    fields : list of str, optional
+        Struct field names to extract from result. Defaults to DEFAULT_MPC_FIELDS.
+    verbose : bool, optional
+        Verbosity of oct2py eval, by default False.
+    **kwargs :
+        Variables pushed into Octave session before running cmd.
+        Keys become Octave variable names, e.g. mpc=mpc, mpopt=mpopt.
+    """
+    if fields is None:
+        fields = DEFAULT_MPC_FIELDS
+
+    if m is None:
+        m = start_instance(engine="octave")
+        SHUTDOWN = True
+    else:
+        SHUTDOWN = False
+
+    for var_name, value in kwargs.items():
+        m.push(var_name, value)
+    m.eval(f"r1_ = {cmd};", verbose=verbose)
+
+    result = {}
+    for field in fields:
+        result[field] = m.eval(f"r1_.{field};", verbose=verbose)
+
+    if SHUTDOWN:
+        m.exit()
 
     return result
 

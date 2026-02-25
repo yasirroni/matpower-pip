@@ -161,3 +161,11 @@ def test_matpower_matlab_command():
     r1 = matpower.run_matlab_cmd("runopf(mpc)", m=m, mpc=mpc)
 
     assert r1["gen"].size[1] > mpc["gen"].size[1]  # runopf adds more columns to gen
+
+
+def test_matpower_octave_command():
+    m = matpower.start_instance(engine="octave")
+    mpc = m.loadcase("case9")
+    r1 = matpower.run_octave_cmd("runopf(mpc)", m=m, mpc=mpc)
+
+    assert r1["gen"].shape[1] > mpc["gen"].shape[1]  # runopf adds more columns to gen
