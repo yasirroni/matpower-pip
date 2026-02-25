@@ -190,6 +190,17 @@ r1 = {
 }
 ```
 
+## Running with wrapped engine (automatically detect `oct2py` or `matlab.engine`)
+
+```python
+from matpower import run_matpower_cmd, start_instance
+
+m = start_instance()
+mpc = m.loadcase("case9")
+r1 = run_matpower_cmd("runpf(mpc)", m=m, mpc=mpc)
+m.exit()
+```
+
 ## Known engine issue
 
 ### Octave
