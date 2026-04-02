@@ -1,21 +1,21 @@
-numpy==2.4.2
-pandas==3.0.1
-oct2py==5.8.0
+numpy==2.4.4
+pandas==3.0.2
+oct2py==6.0.1
 matplotlib==3.10.8
 openpyxl==3.1.5
 
-matpowercaseframes==2.0.3
+matpowercaseframes==2.1.0
 pypglib==0.0.3
 
 pytest==9.0.2
-pytest-cov==7.0.0
+pytest-cov==7.1.0
 pytest-xdist==3.8.0
 
 jupyter==1.1.1
 nbmake==1.5.5
 
-setuptools==82.0.0
+setuptools==82.0.1
 
 pre-commit==4.5.1
 nb-clean==4.0.1
-ruff==0.15.5
+ruff==0.15.8
