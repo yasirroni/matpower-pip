@@ -37,7 +37,7 @@ TODO:
 <!-- 
 ### Mac (zsh)
 
-```shell
+```sh
 cp matpowerpip/__init__.py matpower/__init__.py
 ```
 
@@ -133,7 +133,16 @@ pandoc README.md -o README.pdf
 
 ## Zip repo
 
-```shell
+```sh
 alias gitzip="git archive HEAD -o ${PWD##*/}.zip"
 gitzip
+```
+
+## Jupytext
+
+The `notebooks_py` folder is ignored by git
+
+```sh
+jupytext --set-formats "notebooks//ipynb,notebooks_py//py:percent" notebooks/*.ipynb
+jupytext --sync notebooks/*.ipynb
 ```

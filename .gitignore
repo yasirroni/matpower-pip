@@ -25,6 +25,7 @@ backups/
 playgrounds/
 playground.ipynb
 .private/
+notebooks_py/
 
 # Editor
 .vscode/
